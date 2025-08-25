@@ -17,4 +17,6 @@
     <string name="app_selection_dialog_title">选择应用</string>
     <string name="status_bar_lyric_title">状态栏歌词</string>
     <string name="status_bar_lyric_summary">感谢ExthmUI，MikuUI和Kaleidoscope团队的付出</string>
+    <string name="music_lockscreen_title">音乐锁屏</string>
+    <string name="music_lockscreen_summary">锁屏时将显示黑胶唱片，上滑退出</string>
 </resources>
