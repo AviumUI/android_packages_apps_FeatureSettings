@@ -22,6 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import android.provider.Settings
+import android.provider.Settings.Secure
 import org.exthm.featuresettings.R
 import kotlin.math.roundToInt
 
@@ -36,6 +38,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val disableSensorApps by viewModel.disableSensorApps.collectAsStateWithLifecycle()
     val showAppSelectionDialog by viewModel.showAppSelectionDialog.collectAsStateWithLifecycle()
     val installedApps by viewModel.installedApps.collectAsStateWithLifecycle()
+    val statusBarLyricEnabled by viewModel.statusBarLyricEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -90,6 +93,14 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
             )
 
             Spacer(modifier = Modifier.height(32.dp))
+
+            SettingItem(
+                title = stringResource(R.string.status_bar_lyric_title),
+                description = stringResource(R.string.status_bar_lyric_summary),
+                isChecked = statusBarLyricEnabled, 
+                onCheckedChange = { viewModel.onStatusBarLyricChanged(it) },
+                enabled = true 
+            )
 
             SettingItem(
                 title = stringResource(R.string.lockscreen_dim_title),

@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.exthm.featuresettings.utils.SystemPropertiesHelper
+import android.provider.Settings
+import android.provider.Settings.Secure
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,6 +26,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val SCREEN_OCR_HIGH_KEY = "persist.exthm.screenocr_high"
         private const val DISABLE_SENSOR_KEY = "persist.exthm.disablesensor"
         private const val DISABLE_SENSOR_APPS_KEY = "persist.exthm.disablesensor.apps"
+        private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
+        private const val LYRIC_ENABLED_VALUE = "1"  
+        private const val LYRIC_DISABLED_VALUE = "0"  
     }
 
     private val _lockscreenDimEnabled = MutableStateFlow(false)
@@ -50,6 +55,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _installedApps = MutableStateFlow<List<AppInfo>>(emptyList())
     val installedApps: StateFlow<List<AppInfo>> = _installedApps
 
+    private val _statusBarLyricEnabled = MutableStateFlow(false)
+    val statusBarLyricEnabled: StateFlow<Boolean> = _statusBarLyricEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -68,6 +76,13 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         } else {
             emptySet()
         }
+
+        val lyricCurrentValue = SystemPropertiesHelper.getSecureString(
+            getApplication<Application>().contentResolver,
+            STATUS_BAR_LYRIC_KEY,
+            LYRIC_DISABLED_VALUE // 默认值：关闭
+        )
+        _statusBarLyricEnabled.value = lyricCurrentValue == LYRIC_ENABLED_VALUE
     }
 
     private fun loadInstalledApps() {
@@ -146,6 +161,18 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun onScreenOcrHighChangeFinished(value: Float) {
         viewModelScope.launch {
             SystemPropertiesHelper.set(SCREEN_OCR_HIGH_KEY, value.toInt().toString())
+        }
+    }
+
+    fun onStatusBarLyricChanged(enabled: Boolean) {
+        _statusBarLyricEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) LYRIC_ENABLED_VALUE else LYRIC_DISABLED_VALUE
+            SystemPropertiesHelper.setSecureString(
+                getApplication<Application>().contentResolver,
+                STATUS_BAR_LYRIC_KEY,
+                targetValue
+            )
         }
     }
 }

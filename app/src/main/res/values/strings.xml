@@ -15,4 +15,6 @@
     <string name="disable_sensor_summary_none">点击选择应用</string>
     <string name="disable_sensor_summary_selected">已选择 %d 个应用</string>
     <string name="app_selection_dialog_title">选择应用</string>
+    <string name="status_bar_lyric_title">状态栏歌词</string>
+    <string name="status_bar_lyric_summary">感谢ExthmUI，MikuUI和Kaleidoscope团队的付出</string>
 </resources>
