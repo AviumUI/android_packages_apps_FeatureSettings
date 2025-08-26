@@ -28,6 +28,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val DISABLE_SENSOR_APPS_KEY = "persist.exthm.disablesensor.apps"
         private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
         private const val MUSIC_LOCKSCREEN_KEY = "persist.avium.lockscreen.music"
+        private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
         private const val LYRIC_ENABLED_VALUE = "1"  
         private const val LYRIC_DISABLED_VALUE = "0"  
         private const val ENABLED_VALUE = "1"
@@ -64,6 +65,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _musicLockscreenEnabled = MutableStateFlow(false)
     val musicLockscreenEnabled: StateFlow<Boolean> = _musicLockscreenEnabled
 
+    private val _musicLockscreenUnlockEnabled = MutableStateFlow(false)
+    val musicLockscreenUnlockEnabled: StateFlow<Boolean> = _musicLockscreenUnlockEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -91,6 +95,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         _statusBarLyricEnabled.value = lyricCurrentValue == LYRIC_ENABLED_VALUE
 
         _musicLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_KEY, false)
+        _musicLockscreenUnlockEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_UNLOCK_KEY, false)
     }
 
     private fun loadInstalledApps() {
@@ -189,6 +194,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             val targetValue = if (enabled) ENABLED_VALUE else DISABLED_VALUE
             SystemPropertiesHelper.set(MUSIC_LOCKSCREEN_KEY, targetValue)
+        }
+    }
+
+    fun onMusicLockscreenUnlockChanged(enabled: Boolean) {
+        _musicLockscreenUnlockEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) "true" else "false"
+            SystemPropertiesHelper.set(MUSIC_LOCKSCREEN_UNLOCK_KEY, targetValue)
         }
     }
 }
