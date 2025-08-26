@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">实验室</string>
+    <string name="top_bar_title">实验功能</string>
+    <string name="lockscreen_dim_title">关闭锁屏界面压暗</string>
+    <string name="lockscreen_dim_summary">开启后，锁屏壁纸将不会被强制压暗</string>
+    <string name="launcher_blur_title">桌面过渡模糊</string>
+    <string name="launcher_blur_summary">为应用启动和退出等桌面过渡启用全层级背景模糊效果</string>
+    <string name="screen_ocr_title">屏幕文字提取</string>
+    <string name="screen_ocr_summary">长按手势导航提示条启用屏幕内容文字识别功能</string>
+    <string name="screen_ocr_high_title">手势识别高度</string>
+    <string name="main_hint">实验室功能，功能存在不稳定可能</string>
+    <string name="main_ps">注：启用可能会影响系统稳定性或增加性能预算</string>
+    <string name="lab_summary">实验室功能，酌情使用</string>
+    <string name="disable_sensor_title">应用开启时禁用传感器6秒</string>
+    <string name="disable_sensor_summary_none">点击选择应用</string>
+    <string name="disable_sensor_summary_selected">已选择 %d 个应用</string>
+    <string name="app_selection_dialog_title">选择应用</string>
+    <string name="status_bar_lyric_title">状态栏歌词</string>
+    <string name="status_bar_lyric_summary">感谢ExthmUI，MikuUI和Kaleidoscope团队的付出</string>
+    <string name="music_lockscreen_title">音乐锁屏</string>
+    <string name="music_lockscreen_summary">锁屏时将显示黑胶唱片，上滑退出</string>
+    <string name="music_lockscreen_unlock_title">音乐锁屏常显</string>
+    <string name="music_lockscreen_unlock_summary">开启后，音乐锁屏需要手动熄屏</string>
+</resources>
