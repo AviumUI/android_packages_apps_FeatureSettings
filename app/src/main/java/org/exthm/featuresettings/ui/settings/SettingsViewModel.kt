@@ -20,12 +20,12 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                        val appName: String)
 
     companion object {
-        private const val LOCKSCREEN_DIM_KEY = "persist.exthm.lockscreendim"
-        private const val LAUNCHER_BLUR_KEY = "persist.exthm.launcherblur"
-        private const val SCREEN_OCR_KEY = "persist.exthm.screenocr"
-        private const val SCREEN_OCR_HIGH_KEY = "persist.exthm.screenocr_high"
-        private const val DISABLE_SENSOR_KEY = "persist.exthm.disablesensor"
-        private const val DISABLE_SENSOR_APPS_KEY = "persist.exthm.disablesensor.apps"
+        private const val LOCKSCREEN_DIM_KEY = "persist.avium.lockscreendim"
+        private const val LAUNCHER_BLUR_KEY = "persist.avium.launcherblur"
+        private const val SCREEN_OCR_KEY = "persist.avium.screenocr"
+        private const val SCREEN_OCR_HIGH_KEY = "persist.avium.screenocr_high"
+        private const val DISABLE_SENSOR_KEY = "persist.avium.disablesensor"
+        private const val DISABLE_SENSOR_APPS_KEY = "persist.avium.disablesensor.apps"
         private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
         private const val MUSIC_LOCKSCREEN_KEY = "persist.avium.lockscreen.music"
         private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
