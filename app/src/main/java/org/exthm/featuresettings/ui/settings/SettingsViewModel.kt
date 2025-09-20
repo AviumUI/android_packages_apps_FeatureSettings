@@ -29,6 +29,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
         private const val MUSIC_LOCKSCREEN_KEY = "persist.avium.lockscreen.music"
         private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
+        private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
         private const val LYRIC_ENABLED_VALUE = "1"  
         private const val LYRIC_DISABLED_VALUE = "0"  
         private const val ENABLED_VALUE = "1"
@@ -68,6 +69,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _musicLockscreenUnlockEnabled = MutableStateFlow(false)
     val musicLockscreenUnlockEnabled: StateFlow<Boolean> = _musicLockscreenUnlockEnabled
 
+    private val _customLockscreenEnabled = MutableStateFlow(false)
+    val customLockscreenEnabled: StateFlow<Boolean> = _customLockscreenEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -96,6 +100,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
         _musicLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_KEY, false)
         _musicLockscreenUnlockEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_UNLOCK_KEY, false)
+        
+        _customLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(CUSTOM_LOCKSCREEN_KEY, false)
     }
 
     private fun loadInstalledApps() {
@@ -202,6 +208,36 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             val targetValue = if (enabled) "true" else "false"
             SystemPropertiesHelper.set(MUSIC_LOCKSCREEN_UNLOCK_KEY, targetValue)
+        }
+    }
+
+    fun onCustomLockscreenChanged(enabled: Boolean) {
+        _customLockscreenEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) "true" else "false"
+            SystemPropertiesHelper.set(CUSTOM_LOCKSCREEN_KEY, targetValue)
+            sendCustomLockscreenBroadcast()
+        }
+    }
+
+    private fun sendCustomLockscreenBroadcast() {
+        try {
+            val intent = Intent("org.avium.systemui.lockscreen.SETTINGS_CHANGED")
+            intent.flags = Intent.FLAG_RECEIVER_INCLUDE_BACKGROUND
+            getApplication<Application>().sendBroadcast(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun launchCustomLockscreenApp() {
+        try {
+            val intent = Intent()
+            intent.setClassName("org.avium.lockscreenedit", "org.avium.lockscreenedit.MainActivity")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            getApplication<Application>().startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

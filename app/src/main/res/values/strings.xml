@@ -21,4 +21,6 @@
     <string name="music_lockscreen_summary">Display vinyl record on lockscreen, swipe up to exit</string>
     <string name="music_lockscreen_unlock_title">Keep Music Lockscreen On</string>
     <string name="music_lockscreen_unlock_summary">When enabled, music lockscreen needs manual screen off</string>
+    <string name="custom_lockscreen_title">CustomLockscreen</string>
+    <string name="custom_lockscreen_summary">Click to open custom lockscreen settings</string>
 </resources>
