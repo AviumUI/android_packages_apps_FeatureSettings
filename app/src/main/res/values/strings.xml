@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Feature Lab</string>
+    <string name="app_name">AviumLab</string>
     <string name="top_bar_title">Experimental Features</string>
     <string name="lockscreen_dim_title">Disable Lockscreen Dimming</string>
     <string name="lockscreen_dim_summary">When enabled, lock screen wallpaper will not be forced to dim</string>
