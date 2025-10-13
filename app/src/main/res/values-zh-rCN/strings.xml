@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">实验室</string>
-    <string name="top_bar_title">实验功能</string>
+    <string name="app_name">Avium绝招</string>
+    <string name="top_bar_title">Avium绝招</string>
     <string name="lockscreen_dim_title">关闭锁屏界面压暗</string>
     <string name="lockscreen_dim_summary">开启后，锁屏壁纸将不会被强制压暗</string>
     <string name="launcher_blur_title">桌面过渡模糊</string>
