@@ -44,6 +44,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val customLockscreenEnabled by viewModel.customLockscreenEnabled.collectAsStateWithLifecycle()
     val depthWallpaperEnabled by viewModel.depthWallpaperEnabled.collectAsStateWithLifecycle()
     val forceScreenshotEnabled by viewModel.forceScreenshotEnabled.collectAsStateWithLifecycle()
+    val fakeBlUnlockEnabled by viewModel.fakeBlUnlockEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -130,7 +131,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
                 enabled = true
             )
-
+            
             SettingItemWithClickableDescription(
                 title = stringResource(R.string.depth_wallpaper_title),
                 description = stringResource(R.string.depth_wallpaper_summary),
@@ -180,6 +181,13 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 description = stringResource(R.string.force_screenshot_summary),
                 isChecked = forceScreenshotEnabled,
                 onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
+            )
+            SettingItem(
+                title = stringResource(R.string.fake_bl_unlock_title),
+                description = stringResource(R.string.fake_bl_unlock_summary),
+                isChecked = fakeBlUnlockEnabled,
+                onCheckedChange = { viewModel.onFakeBlUnlockChanged(it) },
+                enabled = true
             )
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
