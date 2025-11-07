@@ -129,6 +129,7 @@ fun CategorySettingsScreen(
     val customLockscreenEnabled by viewModel.customLockscreenEnabled.collectAsStateWithLifecycle()
     val depthWallpaperEnabled by viewModel.depthWallpaperEnabled.collectAsStateWithLifecycle()
     val forceScreenshotEnabled by viewModel.forceScreenshotEnabled.collectAsStateWithLifecycle()
+    val fakeBlUnlockEnabled by viewModel.fakeBlUnlockEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -222,6 +223,7 @@ fun CategorySettingsScreen(
                         onCheckedChange = { viewModel.onMusicLockscreenChanged(it) }
                     )
 
+<<<<<<< HEAD   (d7536d7723dabf7bb468a4dea29028cb8f054854 FeatureSettings: Tune the length of the string)
                     SettingItem(
                         title = stringResource(R.string.music_lockscreen_unlock_title),
                         description = stringResource(R.string.music_lockscreen_unlock_summary),
@@ -238,6 +240,25 @@ fun CategorySettingsScreen(
                         onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
                         enabled = true
                     )
+=======
+            SettingItemWithClickableDescription(
+                title = stringResource(R.string.custom_lockscreen_title),
+                description = stringResource(R.string.custom_lockscreen_summary),
+                isChecked = customLockscreenEnabled,
+                onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
+                onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
+                enabled = true
+            )
+            
+            SettingItemWithClickableDescription(
+                title = stringResource(R.string.depth_wallpaper_title),
+                description = stringResource(R.string.depth_wallpaper_summary),
+                isChecked = depthWallpaperEnabled,
+                onCheckedChange = { viewModel.onDepthWallpaperChanged(it) },
+                onDescriptionClick = { viewModel.launchDepthWallpaperApp() },
+                enabled = true
+            )
+>>>>>>> CHANGE (d535463380fabafca1bed09fda8fc84ca78a77ed feat: add fake BL unlock feature)
 
                     SettingItemWithClickableDescription(
                         title = stringResource(R.string.depth_wallpaper_title),
@@ -282,6 +303,50 @@ fun CategorySettingsScreen(
                     )
                 }
             }
+<<<<<<< HEAD   (d7536d7723dabf7bb468a4dea29028cb8f054854 FeatureSettings: Tune the length of the string)
+=======
+            SettingItemWithClickableDescription(
+                title = stringResource(R.string.disable_sensor_title),
+                description = descriptionText,
+                isChecked = disableSensorEnabled,
+                onCheckedChange = { viewModel.onDisableSensorChanged(it) },
+                onDescriptionClick = { viewModel.onShowAppSelectionDialog() },
+                enabled = true
+            )
+
+            SettingItem(
+                title = stringResource(R.string.screen_ocr_title),
+                description = stringResource(R.string.screen_ocr_summary),
+                isChecked = screenOcrEnabled,
+                onCheckedChange = { viewModel.onScreenOcrChanged(it) }
+            )
+
+            SettingItem(
+                title = stringResource(R.string.force_screenshot_title),
+                description = stringResource(R.string.force_screenshot_summary),
+                isChecked = forceScreenshotEnabled,
+                onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
+            )
+            SettingItem(
+                title = stringResource(R.string.fake_bl_unlock_title),
+                description = stringResource(R.string.fake_bl_unlock_summary),
+                isChecked = fakeBlUnlockEnabled,
+                onCheckedChange = { viewModel.onFakeBlUnlockChanged(it) },
+                enabled = true
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            SliderSettingItem(
+                title = stringResource(R.string.screen_ocr_high_title),
+                value = screenOcrHighValue,
+                onValueChange = { viewModel.onScreenOcrHighChanged(it) },
+                onValueChangeFinished = { viewModel.onScreenOcrHighChangeFinished(screenOcrHighValue) },
+                valueRange = 7f..20f,
+                steps = 12,
+                enabled = screenOcrEnabled
+            )
+>>>>>>> CHANGE (d535463380fabafca1bed09fda8fc84ca78a77ed feat: add fake BL unlock feature)
         }
     }
 }
