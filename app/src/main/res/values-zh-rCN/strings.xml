@@ -23,6 +23,8 @@
     <string name="music_lockscreen_unlock_summary">开启后，音乐锁屏需要手动熄屏</string>
     <string name="custom_lockscreen_title">万象时钟</string>
     <string name="custom_lockscreen_summary">点击跳转到自定义锁屏设置</string>
+    <string name="fake_bl_unlock_title">强制欺骗bl解锁状态</string>
+    <string name="fake_bl_unlock_summary">开启后需要重启才能生效</string>
     <string name="depth_wallpaper_title">景深壁纸</string>
     <string name="depth_wallpaper_summary">为锁屏启用景深效果,点击进入景深设置</string>
     <string name="force_screenshot_title">强制截图</string>
