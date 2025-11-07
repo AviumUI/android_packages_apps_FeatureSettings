@@ -23,4 +23,6 @@
     <string name="music_lockscreen_unlock_summary">When enabled, music lockscreen needs manual screen off</string>
     <string name="custom_lockscreen_title">CustomLockscreen</string>
     <string name="custom_lockscreen_summary">Click to open custom lockscreen settings</string>
+    <string name="fake_bl_unlock_title">Force Fake BL Unlock Status</string>
+    <string name="fake_bl_unlock_summary"></string>
 </resources>

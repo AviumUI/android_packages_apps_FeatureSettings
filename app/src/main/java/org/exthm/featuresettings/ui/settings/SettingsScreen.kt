@@ -42,6 +42,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val musicLockscreenEnabled by viewModel.musicLockscreenEnabled.collectAsStateWithLifecycle()
     val musicLockscreenUnlockEnabled by viewModel.musicLockscreenUnlockEnabled.collectAsStateWithLifecycle()
     val customLockscreenEnabled by viewModel.customLockscreenEnabled.collectAsStateWithLifecycle()
+    val fakeBlUnlockEnabled by viewModel.fakeBlUnlockEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -126,6 +127,14 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 isChecked = customLockscreenEnabled,
                 onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
                 onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
+                enabled = true
+            )
+
+            SettingItem(
+                title = stringResource(R.string.fake_bl_unlock_title),
+                description = stringResource(R.string.fake_bl_unlock_summary),
+                isChecked = fakeBlUnlockEnabled,
+                onCheckedChange = { viewModel.onFakeBlUnlockChanged(it) },
                 enabled = true
             )
 

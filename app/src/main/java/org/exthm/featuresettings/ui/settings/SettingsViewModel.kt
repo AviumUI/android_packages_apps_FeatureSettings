@@ -13,6 +13,9 @@ import kotlinx.coroutines.withContext
 import org.exthm.featuresettings.utils.SystemPropertiesHelper
 import android.provider.Settings
 import android.provider.Settings.Secure
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -30,6 +33,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val MUSIC_LOCKSCREEN_KEY = "persist.avium.lockscreen.music"
         private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
+        private const val FAKE_BL_UNLOCK_KEY = "persist.avium.fakeblunlock"
         private const val LYRIC_ENABLED_VALUE = "1"  
         private const val LYRIC_DISABLED_VALUE = "0"  
         private const val ENABLED_VALUE = "1"
@@ -72,6 +76,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _customLockscreenEnabled = MutableStateFlow(false)
     val customLockscreenEnabled: StateFlow<Boolean> = _customLockscreenEnabled
 
+    private val _fakeBlUnlockEnabled = MutableStateFlow(false)
+    val fakeBlUnlockEnabled: StateFlow<Boolean> = _fakeBlUnlockEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -102,6 +109,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         _musicLockscreenUnlockEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_UNLOCK_KEY, false)
         
         _customLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(CUSTOM_LOCKSCREEN_KEY, false)
+        _fakeBlUnlockEnabled.value = SystemPropertiesHelper.getBoolean(FAKE_BL_UNLOCK_KEY, false)
     }
 
     private fun loadInstalledApps() {
@@ -220,6 +228,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun onFakeBlUnlockChanged(enabled: Boolean) {
+        _fakeBlUnlockEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) "true" else "false"
+            SystemPropertiesHelper.set(FAKE_BL_UNLOCK_KEY, targetValue)
+            writeFakeBlUnlockToConfig(targetValue)
+        }
+    }
+
     private fun sendCustomLockscreenBroadcast() {
         try {
             val intent = Intent("org.avium.systemui.lockscreen.SETTINGS_CHANGED")
@@ -238,6 +255,56 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             getApplication<Application>().startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    private fun writeFakeBlUnlockToConfig(value: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val configFile = File("/metadata/avium/avium_init.cfg")
+                val parentDir = configFile.parentFile
+                if (parentDir != null && !parentDir.exists()) {
+                    if (!parentDir.mkdirs()) {
+                        SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+                        return@launch
+                    }
+                }
+                val existingContent = try {
+                    if (configFile.exists()) {
+                        configFile.readText()
+                    } else {
+                        ""
+                    }
+                } catch (e: Exception) {
+                    ""
+                }
+                
+                val lines = existingContent.split("\n").toMutableList()
+                val fakePropLine = "set_fake_prop=$value"
+                
+                var found = false
+                for (i in lines.indices) {
+                    if (lines[i].startsWith("set_fake_prop=")) {
+                        lines[i] = fakePropLine
+                        found = true
+                        break
+                    }
+                }
+                
+                if (!found) {
+                    lines.add(fakePropLine)
+                }
+                
+                try {
+                    FileWriter(configFile).use { writer ->
+                        writer.write(lines.joinToString("\n"))
+                    }
+                } catch (e: IOException) {
+                    SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+                }
+            } catch (e: Exception) {
+                SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+            }
         }
     }
 }
