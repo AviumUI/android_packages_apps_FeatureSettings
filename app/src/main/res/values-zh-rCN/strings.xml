@@ -25,4 +25,6 @@
     <string name="custom_lockscreen_summary">点击跳转到自定义锁屏设置</string>
     <string name="depth_wallpaper_title">景深壁纸</string>
     <string name="depth_wallpaper_summary">为锁屏启用景深效果,点击进入景深设置</string>
+    <string name="force_screenshot_title">强制截图</string>
+    <string name="force_screenshot_summary">屏蔽FLAG_SECURE导致的拒绝截图</string>
 </resources>

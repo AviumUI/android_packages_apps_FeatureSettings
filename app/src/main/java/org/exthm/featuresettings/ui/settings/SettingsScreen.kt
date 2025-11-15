@@ -43,6 +43,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val musicLockscreenUnlockEnabled by viewModel.musicLockscreenUnlockEnabled.collectAsStateWithLifecycle()
     val customLockscreenEnabled by viewModel.customLockscreenEnabled.collectAsStateWithLifecycle()
     val depthWallpaperEnabled by viewModel.depthWallpaperEnabled.collectAsStateWithLifecycle()
+    val forceScreenshotEnabled by viewModel.forceScreenshotEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -172,6 +173,13 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 description = stringResource(R.string.screen_ocr_summary),
                 isChecked = screenOcrEnabled,
                 onCheckedChange = { viewModel.onScreenOcrChanged(it) }
+            )
+
+            SettingItem(
+                title = stringResource(R.string.force_screenshot_title),
+                description = stringResource(R.string.force_screenshot_summary),
+                isChecked = forceScreenshotEnabled,
+                onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
             )
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))

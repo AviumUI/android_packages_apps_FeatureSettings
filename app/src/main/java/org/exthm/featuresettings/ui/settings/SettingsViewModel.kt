@@ -31,6 +31,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
         private const val DEPTH_WALLPAPER_KEY = "persist.avium.depthwallpaper"
+        private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
         private const val LYRIC_ENABLED_VALUE = "1"  
         private const val LYRIC_DISABLED_VALUE = "0"  
         private const val ENABLED_VALUE = "1"
@@ -76,6 +77,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _depthWallpaperEnabled = MutableStateFlow(false)
     val depthWallpaperEnabled: StateFlow<Boolean> = _depthWallpaperEnabled
 
+    private val _forceScreenshotEnabled = MutableStateFlow(false)
+    val forceScreenshotEnabled: StateFlow<Boolean> = _forceScreenshotEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -108,6 +112,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         _customLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(CUSTOM_LOCKSCREEN_KEY, false)
         
         _depthWallpaperEnabled.value = SystemPropertiesHelper.getBoolean(DEPTH_WALLPAPER_KEY, false)
+        
+        _forceScreenshotEnabled.value = SystemPropertiesHelper.getBoolean(FORCE_SCREENSHOT_KEY, false)
     }
 
     private fun loadInstalledApps() {
@@ -264,6 +270,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             getApplication<Application>().startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    fun onForceScreenshotChanged(enabled: Boolean) {
+        _forceScreenshotEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) ENABLED_VALUE else DISABLED_VALUE
+            SystemPropertiesHelper.set(FORCE_SCREENSHOT_KEY, targetValue)
         }
     }
 }
