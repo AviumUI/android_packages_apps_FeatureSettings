@@ -30,6 +30,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val MUSIC_LOCKSCREEN_KEY = "persist.avium.lockscreen.music"
         private const val MUSIC_LOCKSCREEN_UNLOCK_KEY = "persist.avium.lockscreen.music.unlock"
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
+        private const val DEPTH_WALLPAPER_KEY = "persist.avium.depthwallpaper"
         private const val LYRIC_ENABLED_VALUE = "1"  
         private const val LYRIC_DISABLED_VALUE = "0"  
         private const val ENABLED_VALUE = "1"
@@ -72,6 +73,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _customLockscreenEnabled = MutableStateFlow(false)
     val customLockscreenEnabled: StateFlow<Boolean> = _customLockscreenEnabled
 
+    private val _depthWallpaperEnabled = MutableStateFlow(false)
+    val depthWallpaperEnabled: StateFlow<Boolean> = _depthWallpaperEnabled
+
     init {
         loadInitialSettings()
         loadInstalledApps()
@@ -102,6 +106,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         _musicLockscreenUnlockEnabled.value = SystemPropertiesHelper.getBoolean(MUSIC_LOCKSCREEN_UNLOCK_KEY, false)
         
         _customLockscreenEnabled.value = SystemPropertiesHelper.getBoolean(CUSTOM_LOCKSCREEN_KEY, false)
+        
+        _depthWallpaperEnabled.value = SystemPropertiesHelper.getBoolean(DEPTH_WALLPAPER_KEY, false)
     }
 
     private fun loadInstalledApps() {
@@ -234,6 +240,26 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         try {
             val intent = Intent()
             intent.setClassName("org.avium.lockscreenedit", "org.avium.lockscreenedit.MainActivity")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            getApplication<Application>().startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun onDepthWallpaperChanged(enabled: Boolean) {
+        _depthWallpaperEnabled.value = enabled
+        viewModelScope.launch {
+            val targetValue = if (enabled) ENABLED_VALUE else DISABLED_VALUE
+            SystemPropertiesHelper.set(DEPTH_WALLPAPER_KEY, targetValue)
+            sendCustomLockscreenBroadcast()
+        }
+    }
+
+    fun launchDepthWallpaperApp() {
+        try {
+            val intent = Intent()
+            intent.setClassName("org.avium.aviumdepthwallpaper", "org.avium.aviumdepthwallpaper.MainActivity")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             getApplication<Application>().startActivity(intent)
         } catch (e: Exception) {

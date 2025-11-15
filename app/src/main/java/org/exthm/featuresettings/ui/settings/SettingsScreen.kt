@@ -42,6 +42,7 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val musicLockscreenEnabled by viewModel.musicLockscreenEnabled.collectAsStateWithLifecycle()
     val musicLockscreenUnlockEnabled by viewModel.musicLockscreenUnlockEnabled.collectAsStateWithLifecycle()
     val customLockscreenEnabled by viewModel.customLockscreenEnabled.collectAsStateWithLifecycle()
+    val depthWallpaperEnabled by viewModel.depthWallpaperEnabled.collectAsStateWithLifecycle()
 
     if (showAppSelectionDialog) {
         AppSelectionDialog(
@@ -126,6 +127,15 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 isChecked = customLockscreenEnabled,
                 onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
                 onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
+                enabled = true
+            )
+
+            SettingItemWithClickableDescription(
+                title = stringResource(R.string.depth_wallpaper_title),
+                description = stringResource(R.string.depth_wallpaper_summary),
+                isChecked = depthWallpaperEnabled,
+                onCheckedChange = { viewModel.onDepthWallpaperChanged(it) },
+                onDescriptionClick = { viewModel.launchDepthWallpaperApp() },
                 enabled = true
             )
 

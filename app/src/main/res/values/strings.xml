@@ -23,4 +23,6 @@
     <string name="music_lockscreen_unlock_summary">When enabled, music lockscreen needs manual screen off</string>
     <string name="custom_lockscreen_title">CustomLockscreen</string>
     <string name="custom_lockscreen_summary">Click to open custom lockscreen settings</string>
+    <string name="depth_wallpaper_title">Depth Wallpaper</string>
+    <string name="depth_wallpaper_summary">Enable depth effect for Lockscreen, click to open depthwallpaper settings</string>
 </resources>
