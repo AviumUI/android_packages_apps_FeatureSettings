@@ -33,6 +33,23 @@
       "message": "Comment removed by: bin@wzwzx.cn; Reason: 1",
       "revId": "da488c1539dbf2ba88820d11af9b3065fc1f1bc2",
       "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c8432b_070b414d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-05T15:11:20Z",
+      "side": 1,
+      "message": "white spaces",
+      "revId": "da488c1539dbf2ba88820d11af9b3065fc1f1bc2",
+      "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
     }
   ]
 }
