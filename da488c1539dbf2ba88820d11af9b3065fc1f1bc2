@@ -16,6 +16,23 @@
       "message": "White spaces!",
       "revId": "da488c1539dbf2ba88820d11af9b3065fc1f1bc2",
       "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86892f47_21839f08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2026-01-05T14:43:29Z",
+      "side": 1,
+      "message": "Comment removed by: bin@wzwzx.cn; Reason: 1",
+      "revId": "da488c1539dbf2ba88820d11af9b3065fc1f1bc2",
+      "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
     }
   ]
 }
