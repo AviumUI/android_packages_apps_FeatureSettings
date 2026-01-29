@@ -11,7 +11,18 @@
     <string name="main_hint">Lab features may be unstable</string>
     <string name="main_ps">Note: Enabling may affect system stability or increase performance budget</string>
     <string name="lab_summary">Lab features, use with discretion</string>
+    <string name="category_status_bar">Status Bar</string>
+    <string name="category_desktop">Home</string>
+    <string name="category_privacy_security">Sensor</string>
+    <string name="category_lockscreen">Lockscreen</string>
+    <string name="category_system">System</string>
+    <string name="category_status_bar_summary">Lyrics and status bar features</string>
+    <string name="category_desktop_summary">Launcher transition effects</string>
+    <string name="category_privacy_security_summary">Sensor and privacy controls</string>
+    <string name="category_lockscreen_summary">Lockscreen visuals and behavior</string>
+    <string name="category_system_summary">System utilities and capture</string>
     <string name="disable_sensor_title">Disable sensors for 6 seconds when app starts</string>
+
     <string name="disable_sensor_summary_none">Click to select apps</string>
     <string name="disable_sensor_summary_selected">%d apps selected</string>
     <string name="app_selection_dialog_title">Select Apps</string>
@@ -21,7 +32,7 @@
     <string name="music_lockscreen_summary">Display vinyl record on lockscreen, swipe up to exit</string>
     <string name="music_lockscreen_unlock_title">Keep Music Lockscreen On</string>
     <string name="music_lockscreen_unlock_summary">When enabled, music lockscreen needs manual screen off</string>
-    <string name="custom_lockscreen_title">CustomLockscreen</string>
+    <string name="custom_lockscreen_title">Custom Lockscreen</string>
     <string name="custom_lockscreen_summary">Click to open custom lockscreen settings</string>
     <string name="depth_wallpaper_title">Depth Wallpaper</string>
     <string name="depth_wallpaper_summary">Enable depth effect for Lockscreen, click to open depthwallpaper settings</string>
