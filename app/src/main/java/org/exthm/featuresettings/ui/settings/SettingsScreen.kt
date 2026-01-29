@@ -4,10 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -15,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,14 +31,90 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import android.provider.Settings
-import android.provider.Settings.Secure
 import org.exthm.featuresettings.R
+import org.exthm.featuresettings.CategoryActivity
 import kotlin.math.roundToInt
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
+    val context = LocalContext.current
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+
+                }
+            )
+        }
+    ) { innerPadding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 24.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_features_page),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(300.dp)
+                            .padding(16.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.main_hint),
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(R.string.main_ps),
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+
+            items(SettingsCategory.displayOrder, key = { it.name }) { category ->
+                CategoryItem(
+                    title = stringResource(category.titleRes),
+                    summary = stringResource(category.summaryRes),
+                    iconRes = category.iconRes,
+                    onClick = { context.startActivity(CategoryActivity.newIntent(context, category)) }
+                )
+            }
+
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CategorySettingsScreen(
+    viewModel: SettingsViewModel,
+    category: SettingsCategory,
+    onNavigateBack: () -> Unit
+) {
     val lockscreenDimEnabled by viewModel.lockscreenDimEnabled.collectAsStateWithLifecycle()
     val launcherBlurEnabled by viewModel.launcherBlurEnabled.collectAsStateWithLifecycle()
     val screenOcrEnabled by viewModel.screenOcrEnabled.collectAsStateWithLifecycle()
@@ -54,16 +139,23 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
         )
     }
 
-
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(id = R.string.top_bar_title),
-                        fontSize = 28.sp,
+                        text = stringResource(category.titleRes),
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Medium
                     )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
                 }
             )
         }
@@ -76,126 +168,185 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_features_page),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(300.dp) 
-                    .padding(16.dp)
-            )
             Text(
-                text = stringResource(R.string.main_hint),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.main_ps),
+                text = stringResource(category.titleRes),
                 fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            when (category) {
+                SettingsCategory.STATUS_BAR -> {
+                    SettingItem(
+                        title = stringResource(R.string.status_bar_lyric_title),
+                        description = stringResource(R.string.status_bar_lyric_summary),
+                        isChecked = statusBarLyricEnabled,
+                        onCheckedChange = { viewModel.onStatusBarLyricChanged(it) },
+                        enabled = true
+                    )
+                }
 
-            SettingItem(
-                title = stringResource(R.string.status_bar_lyric_title),
-                description = stringResource(R.string.status_bar_lyric_summary),
-                isChecked = statusBarLyricEnabled, 
-                onCheckedChange = { viewModel.onStatusBarLyricChanged(it) },
-                enabled = true 
-            )
+                SettingsCategory.DESKTOP -> {
+                    SettingItem(
+                        title = stringResource(R.string.launcher_blur_title),
+                        description = stringResource(R.string.launcher_blur_summary),
+                        isChecked = launcherBlurEnabled,
+                        onCheckedChange = { viewModel.onLauncherBlurChanged(it) }
+                    )
+                }
 
-            SettingItem(
-                title = stringResource(R.string.music_lockscreen_title),
-                description = stringResource(R.string.music_lockscreen_summary),
-                isChecked = musicLockscreenEnabled,
-                onCheckedChange = { viewModel.onMusicLockscreenChanged(it) }
-            )
+                SettingsCategory.PRIVACY_SECURITY -> {
+                    val descriptionText = if (disableSensorApps.isEmpty()) {
+                        stringResource(R.string.disable_sensor_summary_none)
+                    } else {
+                        stringResource(R.string.disable_sensor_summary_selected, disableSensorApps.size)
+                    }
+                    SettingItemWithClickableDescription(
+                        title = stringResource(R.string.disable_sensor_title),
+                        description = descriptionText,
+                        isChecked = disableSensorEnabled,
+                        onCheckedChange = { viewModel.onDisableSensorChanged(it) },
+                        onDescriptionClick = { viewModel.onShowAppSelectionDialog() },
+                        enabled = true
+                    )
+                }
 
-            SettingItem(
-                title = stringResource(R.string.music_lockscreen_unlock_title),
-                description = stringResource(R.string.music_lockscreen_unlock_summary),
-                isChecked = musicLockscreenUnlockEnabled,
-                onCheckedChange = { viewModel.onMusicLockscreenUnlockChanged(it) },
-                enabled = musicLockscreenEnabled 
-            )
+                SettingsCategory.LOCKSCREEN -> {
+                    SettingItem(
+                        title = stringResource(R.string.music_lockscreen_title),
+                        description = stringResource(R.string.music_lockscreen_summary),
+                        isChecked = musicLockscreenEnabled,
+                        onCheckedChange = { viewModel.onMusicLockscreenChanged(it) }
+                    )
 
-            SettingItemWithClickableDescription(
-                title = stringResource(R.string.custom_lockscreen_title),
-                description = stringResource(R.string.custom_lockscreen_summary),
-                isChecked = customLockscreenEnabled,
-                onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
-                onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
-                enabled = true
-            )
+                    SettingItem(
+                        title = stringResource(R.string.music_lockscreen_unlock_title),
+                        description = stringResource(R.string.music_lockscreen_unlock_summary),
+                        isChecked = musicLockscreenUnlockEnabled,
+                        onCheckedChange = { viewModel.onMusicLockscreenUnlockChanged(it) },
+                        enabled = musicLockscreenEnabled
+                    )
 
-            SettingItemWithClickableDescription(
-                title = stringResource(R.string.depth_wallpaper_title),
-                description = stringResource(R.string.depth_wallpaper_summary),
-                isChecked = depthWallpaperEnabled,
-                onCheckedChange = { viewModel.onDepthWallpaperChanged(it) },
-                onDescriptionClick = { viewModel.launchDepthWallpaperApp() },
-                enabled = true
-            )
+                    SettingItemWithClickableDescription(
+                        title = stringResource(R.string.custom_lockscreen_title),
+                        description = stringResource(R.string.custom_lockscreen_summary),
+                        isChecked = customLockscreenEnabled,
+                        onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
+                        onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
+                        enabled = true
+                    )
 
-            SettingItem(
-                title = stringResource(R.string.lockscreen_dim_title),
-                description = stringResource(R.string.lockscreen_dim_summary),
-                isChecked = lockscreenDimEnabled,
-                onCheckedChange = { viewModel.onLockscreenDimChanged(it) }
-            )
+                    SettingItemWithClickableDescription(
+                        title = stringResource(R.string.depth_wallpaper_title),
+                        description = stringResource(R.string.depth_wallpaper_summary),
+                        isChecked = depthWallpaperEnabled,
+                        onCheckedChange = { viewModel.onDepthWallpaperChanged(it) },
+                        onDescriptionClick = { viewModel.launchDepthWallpaperApp() },
+                        enabled = true
+                    )
 
-            SettingItem(
-                title = stringResource(R.string.launcher_blur_title),
-                description = stringResource(R.string.launcher_blur_summary),
-                isChecked = launcherBlurEnabled,
-                onCheckedChange = { viewModel.onLauncherBlurChanged(it) }
-            )
+                    SettingItem(
+                        title = stringResource(R.string.lockscreen_dim_title),
+                        description = stringResource(R.string.lockscreen_dim_summary),
+                        isChecked = lockscreenDimEnabled,
+                        onCheckedChange = { viewModel.onLockscreenDimChanged(it) }
+                    )
+                }
 
-            val descriptionText = if (disableSensorApps.isEmpty()) {
-                stringResource(R.string.disable_sensor_summary_none)
-            } else {
-                stringResource(R.string.disable_sensor_summary_selected, disableSensorApps.size)
+                SettingsCategory.SYSTEM -> {
+                    SettingItem(
+                        title = stringResource(R.string.force_screenshot_title),
+                        description = stringResource(R.string.force_screenshot_summary),
+                        isChecked = forceScreenshotEnabled,
+                        onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
+                    )
+
+                    SettingItem(
+                        title = stringResource(R.string.screen_ocr_title),
+                        description = stringResource(R.string.screen_ocr_summary),
+                        isChecked = screenOcrEnabled,
+                        onCheckedChange = { viewModel.onScreenOcrChanged(it) }
+                    )
+
+                    SliderSettingItem(
+                        title = stringResource(R.string.screen_ocr_high_title),
+                        value = screenOcrHighValue,
+                        onValueChange = { viewModel.onScreenOcrHighChanged(it) },
+                        onValueChangeFinished = { viewModel.onScreenOcrHighChangeFinished(screenOcrHighValue) },
+                        valueRange = 7f..20f,
+                        steps = 12,
+                        enabled = screenOcrEnabled
+                    )
+                }
             }
-            SettingItemWithClickableDescription(
-                title = stringResource(R.string.disable_sensor_title),
-                description = descriptionText,
-                isChecked = disableSensorEnabled,
-                onCheckedChange = { viewModel.onDisableSensorChanged(it) },
-                onDescriptionClick = { viewModel.onShowAppSelectionDialog() },
-                enabled = true
-            )
-
-            SettingItem(
-                title = stringResource(R.string.screen_ocr_title),
-                description = stringResource(R.string.screen_ocr_summary),
-                isChecked = screenOcrEnabled,
-                onCheckedChange = { viewModel.onScreenOcrChanged(it) }
-            )
-
-            SettingItem(
-                title = stringResource(R.string.force_screenshot_title),
-                description = stringResource(R.string.force_screenshot_summary),
-                isChecked = forceScreenshotEnabled,
-                onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
-            )
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-            SliderSettingItem(
-                title = stringResource(R.string.screen_ocr_high_title),
-                value = screenOcrHighValue,
-                onValueChange = { viewModel.onScreenOcrHighChanged(it) },
-                onValueChangeFinished = { viewModel.onScreenOcrHighChangeFinished(screenOcrHighValue) },
-                valueRange = 7f..20f,
-                steps = 12,
-                enabled = screenOcrEnabled
-            )
         }
     }
 }
+
+@Composable
+fun CategoryItem(
+    title: String,
+    summary: String,
+    iconRes: Int,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        onClick = onClick,
+        shape = RoundedCornerShape(24.dp),
+
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        ),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 14.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(id = iconRes),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = title,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowRight,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = summary,
+                fontSize = 13.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 2,
+                minLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+
+        }
+
+    }
+}
+
+
 
 @Composable
 fun SettingItemWithClickableDescription(
