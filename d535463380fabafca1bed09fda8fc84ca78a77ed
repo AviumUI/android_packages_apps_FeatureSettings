@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae640b3_bf31bb4a",
+        "filename": "app/src/main/java/org/exthm/featuresettings/ui/settings/SettingsScreen.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-01-29T06:13:06Z",
+      "side": 1,
+      "message": "Tabs",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 12
+      },
+      "revId": "d535463380fabafca1bed09fda8fc84ca78a77ed",
+      "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82bca544_aa959452",
+        "filename": "app/src/main/java/org/exthm/featuresettings/ui/settings/SettingsViewModel.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-01-29T06:13:06Z",
+      "side": 1,
+      "message": "so many",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 8
+      },
+      "revId": "d535463380fabafca1bed09fda8fc84ca78a77ed",
+      "serverId": "8582d5b1-6499-4a2f-9eb8-9aae0e0bb54f"
+    }
+  ]
+}
