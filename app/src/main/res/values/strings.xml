@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AviumLab</string>
-    <string name="top_bar_title">Experimental Features</string>
+    <string name="top_bar_title">AviumLab</string>
     <string name="lockscreen_dim_title">Disable Lockscreen Dimming</string>
     <string name="lockscreen_dim_summary">When enabled, lock screen wallpaper will not be forced to dim</string>
     <string name="launcher_blur_title">Launcher Transition Blur</string>
@@ -27,7 +27,7 @@
     <string name="disable_sensor_summary_selected">%d apps selected</string>
     <string name="app_selection_dialog_title">Select Apps</string>
     <string name="status_bar_lyric_title">Status Bar Lyrics</string>
-    <string name="status_bar_lyric_summary">Thanks to ExthmUI, MikuUI and Kaleidoscope teams</string>
+    <string name="status_bar_lyric_summary">When playing music, display lyrics in status bar</string>
     <string name="music_lockscreen_title">Music Lockscreen</string>
     <string name="music_lockscreen_summary">Display vinyl record on lockscreen, swipe up to exit</string>
     <string name="music_lockscreen_unlock_title">Keep Music Lockscreen On</string>
