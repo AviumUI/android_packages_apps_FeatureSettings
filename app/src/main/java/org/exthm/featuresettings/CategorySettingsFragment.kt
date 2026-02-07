@@ -146,6 +146,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     }
 
     private fun bindSystemPreferences() {
+        val gmsEnabled = SystemPropertiesHelper.getBoolean(GMS_STATUS_KEY, false)
         bindSwitch(KEY_FORCE_SCREENSHOT, SystemPropertiesHelper.getBoolean(FORCE_SCREENSHOT_KEY, false)) { enabled ->
             val targetValue = if (enabled) ENABLED_VALUE else DISABLED_VALUE
             SystemPropertiesHelper.set(FORCE_SCREENSHOT_KEY, targetValue)
@@ -153,6 +154,11 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
         val screenOcrPref = findPreference<SwitchPreferenceCompat>(KEY_SCREEN_OCR)
         val screenOcrHighPref = findPreference<SliderPreference>(KEY_SCREEN_OCR_HIGH)
+        if (gmsEnabled) {
+            screenOcrPref?.isVisible = false
+            screenOcrHighPref?.isVisible = false
+            return
+        }
 
         val screenOcrEnabled = SystemPropertiesHelper.getBoolean(SCREEN_OCR_KEY, false)
         screenOcrPref?.isPersistent = false
@@ -336,6 +342,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     companion object {
         private const val ARG_CATEGORY = "arg_category"
 
+        private const val GMS_STATUS_KEY = "ro.avium.gms_status"
         private const val LOCKSCREEN_DIM_KEY = "persist.avium.lockscreendim"
         private const val LAUNCHER_BLUR_KEY = "persist.avium.launcherblur"
         private const val SCREEN_OCR_KEY = "persist.avium.screenocr"
