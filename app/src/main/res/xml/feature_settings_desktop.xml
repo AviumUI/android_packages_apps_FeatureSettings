@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/category_desktop">
+
+    <SwitchPreferenceCompat
+        android:key="launcher_blur"
+        android:title="@string/launcher_blur_title"
+        android:summary="@string/launcher_blur_summary"
+        android:defaultValue="false" />
+
+</PreferenceScreen>

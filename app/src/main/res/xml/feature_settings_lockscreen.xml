@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/category_lockscreen">
+
+    <SwitchPreferenceCompat
+        android:key="music_lockscreen"
+        android:title="@string/music_lockscreen_title"
+        android:summary="@string/music_lockscreen_summary"
+        android:defaultValue="false" />
+
+    <SwitchPreferenceCompat
+        android:key="music_lockscreen_unlock"
+        android:title="@string/music_lockscreen_unlock_title"
+        android:summary="@string/music_lockscreen_unlock_summary"
+        android:defaultValue="false" />
+
+    <SwitchPreferenceCompat
+        android:key="custom_lockscreen"
+        android:title="@string/custom_lockscreen_title"
+        android:summary="@string/custom_lockscreen_switch_summary"
+        android:defaultValue="false" />
+
+    <Preference
+        android:key="custom_lockscreen_settings"
+        android:title="@string/custom_lockscreen_settings_title"
+        android:summary="@string/custom_lockscreen_summary" />
+
+    <SwitchPreferenceCompat
+        android:key="depth_wallpaper"
+        android:title="@string/depth_wallpaper_title"
+        android:summary="@string/depth_wallpaper_switch_summary"
+        android:defaultValue="false" />
+
+    <Preference
+        android:key="depth_wallpaper_settings"
+        android:title="@string/depth_wallpaper_settings_title"
+        android:summary="@string/depth_wallpaper_summary" />
+
+    <SwitchPreferenceCompat
+        android:key="lockscreen_dim"
+        android:title="@string/lockscreen_dim_title"
+        android:summary="@string/lockscreen_dim_summary"
+        android:defaultValue="false" />
+
+</PreferenceScreen>

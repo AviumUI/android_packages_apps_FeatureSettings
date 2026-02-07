@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:title="@string/category_system">
+
+    <SwitchPreferenceCompat
+        android:key="force_screenshot"
+        android:title="@string/force_screenshot_title"
+        android:summary="@string/force_screenshot_summary"
+        android:defaultValue="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screen_ocr"
+        android:title="@string/screen_ocr_title"
+        android:summary="@string/screen_ocr_summary"
+        android:defaultValue="false" />
+
+    <com.android.settingslib.widget.SliderPreference
+        android:key="screen_ocr_high"
+        android:title="@string/screen_ocr_high_title"
+        android:min="7"
+        android:max="20"
+        settings:showSeekBarValue="true" />
+
+</PreferenceScreen>

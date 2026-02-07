@@ -2,4 +2,6 @@
 <resources>
 
     <style name="Theme.FeatureSettings" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.FeatureSettings.Settings" parent="Theme.SubSettingsBase" />
 </resources>

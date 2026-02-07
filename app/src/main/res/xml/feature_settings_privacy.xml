@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/category_privacy_security">
+
+    <SwitchPreferenceCompat
+        android:key="disable_sensor"
+        android:title="@string/disable_sensor_title"
+        android:summary="@string/disable_sensor_switch_summary"
+        android:defaultValue="false" />
+
+    <Preference
+        android:key="disable_sensor_apps"
+        android:title="@string/disable_sensor_apps_title"
+        android:summary="@string/disable_sensor_summary_none" />
+
+</PreferenceScreen>

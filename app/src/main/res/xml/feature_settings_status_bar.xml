@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/category_status_bar">
+
+    <SwitchPreferenceCompat
+        android:key="status_bar_lyric"
+        android:title="@string/status_bar_lyric_title"
+        android:summary="@string/status_bar_lyric_summary"
+        android:defaultValue="false" />
+
+</PreferenceScreen>
