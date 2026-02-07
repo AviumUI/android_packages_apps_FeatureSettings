@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Avium绝招</string>
-    <string name="top_bar_title">Avium绝招</string>
+    <string name="app_name">Avium 绝招</string>
+    <string name="top_bar_title">Avium 绝招</string>
     <string name="lockscreen_dim_title">关闭锁屏界面压暗</string>
     <string name="lockscreen_dim_summary">开启后，锁屏壁纸将不会被强制压暗</string>
     <string name="launcher_blur_title">桌面过渡模糊</string>
@@ -8,10 +8,13 @@
     <string name="screen_ocr_title">屏幕文字提取</string>
     <string name="screen_ocr_summary">长按手势导航提示条启用屏幕内容文字识别功能</string>
     <string name="screen_ocr_high_title">手势识别高度</string>
-    <string name="main_hint">实验室功能，功能存在不稳定可能</string>
-    <string name="main_ps">注：启用可能会影响系统稳定性或增加性能预算</string>
+    <string name="main_hint">实验室功能，功能可能不稳定</string>
+    <string name="main_ps">启用后可能会对系统稳定性和性能产生影响</string>
     <string name="lab_summary">实验室功能，酌情使用</string>
-    <string name="disable_sensor_title">应用开启时禁用传感器6秒</string>
+    <string name="feature_categories_title">功能分类</string>
+    <string name="disable_sensor_title">应用开启时禁用传感器 6 秒</string>
+    <string name="disable_sensor_switch_summary">应用启动时临时禁用传感器</string>
+    <string name="disable_sensor_apps_title">选择应用</string>
     <string name="disable_sensor_summary_none">点击选择应用</string>
     <string name="disable_sensor_summary_selected">已选择 %d 个应用</string>
     <string name="app_selection_dialog_title">选择应用</string>
@@ -23,10 +26,14 @@
     <string name="music_lockscreen_unlock_summary">开启后，音乐锁屏需要手动熄屏</string>
     <string name="custom_lockscreen_title">万象时钟</string>
     <string name="custom_lockscreen_summary">点击跳转到自定义锁屏设置</string>
+    <string name="custom_lockscreen_switch_summary">启用自定义锁屏功能</string>
+    <string name="custom_lockscreen_settings_title">自定义锁屏设置</string>
     <string name="depth_wallpaper_title">景深壁纸</string>
     <string name="depth_wallpaper_summary">为锁屏启用景深效果,点击进入景深设置</string>
+    <string name="depth_wallpaper_switch_summary">为锁屏启用景深效果</string>
+    <string name="depth_wallpaper_settings_title">景深壁纸设置</string>
     <string name="force_screenshot_title">强制截图</string>
-    <string name="force_screenshot_summary">屏蔽FLAG_SECURE导致的拒绝截图</string>
+    <string name="force_screenshot_summary">屏蔽 FLAG_SECURE 导致的拒绝截图</string>
     <string name="category_status_bar">状态栏</string>
     <string name="category_desktop">桌面</string>
     <string name="category_privacy_security">传感器</string>

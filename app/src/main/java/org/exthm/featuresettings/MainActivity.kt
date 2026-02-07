@@ -1,25 +1,20 @@
 package org.exthm.featuresettings
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import org.exthm.featuresettings.ui.settings.FeatureSettingsScreen
-import org.exthm.featuresettings.ui.settings.SettingsViewModel
-import org.exthm.featuresettings.ui.theme.FeatureSettingsTheme
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity
 
-class MainActivity : ComponentActivity() {
-
-    private val viewModel: SettingsViewModel by viewModels()
+class MainActivity : CollapsingToolbarBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            FeatureSettingsTheme {
-                FeatureSettingsScreen(viewModel = viewModel)
-            }
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    com.android.settingslib.collapsingtoolbar.R.id.content_frame,
+                    FeatureSettingsFragment()
+                )
+                .commit()
         }
     }
 }
