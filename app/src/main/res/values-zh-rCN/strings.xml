@@ -39,7 +39,7 @@
     <string name="category_privacy_security">传感器</string>
     <string name="category_lockscreen">锁屏</string>
     <string name="category_system">系统</string>
-    <string name="category_status_bar_summary">歌词与状态栏相关功能</string>
+    <string name="category_status_bar_summary">状态栏相关功能</string>
     <string name="category_desktop_summary">桌面切换与启动特效</string>
     <string name="category_privacy_security_summary">传感器与隐私控制</string>
     <string name="category_lockscreen_summary">锁屏显示与交互</string>
