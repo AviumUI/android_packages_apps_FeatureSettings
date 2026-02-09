@@ -5,9 +5,7 @@
     <string name="lockscreen_dim_summary">When enabled, lock screen wallpaper will not be forced to dim</string>
     <string name="launcher_blur_title">Launcher Transition Blur</string>
     <string name="launcher_blur_summary">Enable full-layer background blur effect for launcher transitions such as app launch and exit</string>
-    <string name="screen_ocr_title">Screen Text Extraction</string>
-    <string name="screen_ocr_summary">Long press gesture navigation bar to enable screen content text recognition</string>
-    <string name="screen_ocr_high_title">Gesture Recognition Height</string>
+
     <string name="main_hint">Lab features may be unstable</string>
     <string name="main_ps">Enabling these features may affect system stability and performance</string>
     <string name="lab_summary">Lab features, use with discretion</string>
@@ -39,12 +37,28 @@
     <string name="custom_lockscreen_summary">Click to open custom lockscreen settings</string>
     <string name="custom_lockscreen_switch_summary">Enable custom lockscreen features</string>
     <string name="custom_lockscreen_settings_title">Custom lockscreen settings</string>
-    <string name="fake_bl_unlock_title">Force Fake BL Unlock Status</string>
-    <string name="fake_bl_unlock_summary">Simple disguise device unlock status</string>
+
+
     <string name="depth_wallpaper_title">Depth Wallpaper</string>
     <string name="depth_wallpaper_summary">Enable depth effect for Lockscreen, click to open depthwallpaper settings</string>
     <string name="depth_wallpaper_switch_summary">Enable depth effect for lockscreen</string>
     <string name="depth_wallpaper_settings_title">Depth wallpaper settings</string>
+
+    <!-- System -> Spoofing-->
+    <string name="system_group_spoof">Spoofing</string>
+    <string name="fake_bl_unlock_title">Fake bootloader unlock status</string>
+    <string name="fake_bl_unlock_summary">Requires reboot</string>
+    <string name="fake_bl_unlock_locked_title">Unable to change the setting</string>
+    <string name="fake_bl_unlock_locked_message">Maintainer enabled AVIUM_FORCE_SET_FAKE_PROP so the setting can\'t be changed</string>
+    <string name="fake_bl_unlock_reboot_message">A reboot is required for the change to take effect.</string>
+    <string name="reboot_dialog_reboot_later">Reboot later</string>
+    <string name="reboot_dialog_reboot_now">Reboot now</string>
+
+    <!-- System -> Misc -->
+    <string name="system_group_misc">Misc</string>
     <string name="force_screenshot_title">Force Screenshot</string>
     <string name="force_screenshot_summary">Bypass FLAG_SECURE to allow screenshot capture</string>
+    <string name="screen_ocr_title">Screen Text Extraction</string>
+    <string name="screen_ocr_summary">Long press gesture navigation bar to enable screen content text recognition</string>
+    <string name="screen_ocr_high_title">Gesture Recognition Height</string>
 </resources>

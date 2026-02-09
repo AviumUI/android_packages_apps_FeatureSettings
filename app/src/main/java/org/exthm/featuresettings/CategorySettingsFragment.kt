@@ -28,8 +28,6 @@ import com.android.settingslib.widget.SliderPreference
 import org.exthm.featuresettings.ui.settings.SettingsCategory
 import org.exthm.featuresettings.utils.SystemPropertiesHelper
 import java.io.File
-import java.io.FileWriter
-import java.io.IOException
 
 class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
@@ -149,26 +147,44 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     }
 
     private fun bindSystemPreferences() {
-        val gmsEnabled = SystemPropertiesHelper.getBoolean(GMS_STATUS_KEY, false)
         bindSwitch(KEY_FORCE_SCREENSHOT, SystemPropertiesHelper.getBoolean(FORCE_SCREENSHOT_KEY, false)) { enabled ->
             val targetValue = if (enabled) ENABLED_VALUE else DISABLED_VALUE
             SystemPropertiesHelper.set(FORCE_SCREENSHOT_KEY, targetValue)
         }
 
-        bindSwitch(KEY_FAKE_BL_UNLOCK, SystemPropertiesHelper.getBoolean(FAKE_BL_UNLOCK_KEY, false)) { enabled ->
+        val fakeBlPref = findPreference<SwitchPreferenceCompat>(KEY_FAKE_BL_UNLOCK)
+        val forcedOn = isFakeBlUnlockForcedOn()
+        var fakeBlEnabled = if (forcedOn) true else readFakeBlUnlockFromConfig()
+        fakeBlPref?.isPersistent = false
+        fakeBlPref?.isChecked = fakeBlEnabled
+        fakeBlPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            if (forcedOn && newValue == false) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.fake_bl_unlock_locked_title)
+                    .setMessage(R.string.fake_bl_unlock_locked_message)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+                return@OnPreferenceChangeListener false
+            }
+            val enabled = newValue as Boolean
+            if (enabled != fakeBlEnabled) {
+                showRebootRequiredDialog()
+            }
             val targetValue = if (enabled) "true" else "false"
-            SystemPropertiesHelper.set(FAKE_BL_UNLOCK_KEY, targetValue)
             writeFakeBlUnlockToConfig(targetValue)
+            fakeBlEnabled = enabled
+            true
         }
 
         val screenOcrPref = findPreference<SwitchPreferenceCompat>(KEY_SCREEN_OCR)
         val screenOcrHighPref = findPreference<SliderPreference>(KEY_SCREEN_OCR_HIGH)
+        // Disable MoonOCR for gms builds
+        val gmsEnabled = SystemPropertiesHelper.getBoolean(GMS_STATUS_KEY, false)
         if (gmsEnabled) {
             screenOcrPref?.isVisible = false
             screenOcrHighPref?.isVisible = false
             return
         }
-
         val screenOcrEnabled = SystemPropertiesHelper.getBoolean(SCREEN_OCR_KEY, false)
         screenOcrPref?.isPersistent = false
         screenOcrPref?.isChecked = screenOcrEnabled
@@ -199,52 +215,84 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     private fun writeFakeBlUnlockToConfig(value: String) {
         Thread {
             try {
-                val configFile = File("/metadata/avium/avium_init.cfg")
-                val parentDir = configFile.parentFile
-                if (parentDir != null && !parentDir.exists()) {
-                    if (!parentDir.mkdirs()) {
-                        SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
-                        return@Thread
-                    }
+                val file = File(AVIUM_INIT_CFG)
+                val newLine = "set_fake_prop=$value"
+
+                if (!file.exists()) {
+                    file.parentFile?.mkdirs()
+                    file.writeText(newLine)
+                    return@Thread
                 }
 
-                val existingContent = try {
-                    if (configFile.exists()) {
-                        configFile.readText()
-                    } else {
-                        ""
-                    }
-                } catch (e: Exception) {
-                    ""
+                val content = file.readLines().toMutableList()
+
+                if (content.isEmpty()) {
+                    file.writeText(newLine)
+                    return@Thread
                 }
 
-                val lines = existingContent.split("\n").toMutableList()
-                val fakePropLine = "set_fake_prop=$value"
+                var replaced = false
 
-                var found = false
-                for (i in lines.indices) {
-                    if (lines[i].startsWith("set_fake_prop=")) {
-                        lines[i] = fakePropLine
-                        found = true
+                for (i in content.indices) {
+                    if (content[i].startsWith("set_fake_prop=")) {
+                        content[i] = newLine
+                        replaced = true
                         break
                     }
                 }
 
-                if (!found) {
-                    lines.add(fakePropLine)
+                if (!replaced) {
+                    content.add(newLine)
                 }
-
-                try {
-                    FileWriter(configFile).use { writer ->
-                        writer.write(lines.joinToString("\n"))
-                    }
-                } catch (e: IOException) {
-                    SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
-                }
+                file.writeText(content.joinToString("\n"))
             } catch (e: Exception) {
-                SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+                e.printStackTrace()
             }
         }.start()
+    }
+
+    private fun showRebootRequiredDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.fake_bl_unlock_reboot_message)
+            .setPositiveButton(R.string.reboot_dialog_reboot_now) { _, _ ->
+                startActivity(Intent(Intent.ACTION_REBOOT))
+            }
+            .setNegativeButton(R.string.reboot_dialog_reboot_later, null)
+            .show()
+    }
+
+    private fun readFakeBlUnlockFromConfig(): Boolean {
+        return try {
+            val file = File(AVIUM_INIT_CFG)
+            if (!file.exists()) {
+                return false
+            }
+            val line = file.readLines().firstOrNull { it.startsWith("set_fake_prop=") } ?: return false
+            val rawValue = line.substringAfter("set_fake_prop=").trim()
+            rawValue.equals("true", true) || rawValue == "1"
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    private fun isFakeBlUnlockForcedOn(): Boolean {
+        val statusEnabled = SystemPropertiesHelper.getBoolean(FAKE_BL_UNLOCK_STATUS_KEY, false)
+        if (!statusEnabled) {
+            return false
+        }
+        return isFakeBlUnlockConfigEmpty()
+    }
+
+    private fun isFakeBlUnlockConfigEmpty(): Boolean {
+        return try {
+            val file = File(AVIUM_INIT_CFG)
+            if (!file.exists()) {
+                return true
+            }
+            file.readLines().all { it.isBlank() }
+        } catch (e: Exception) {
+            true
+        }
     }
 
     private fun bindSwitch(key: String, initialValue: Boolean, onChange: (Boolean) -> Unit) {
@@ -415,7 +463,8 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
         private const val DEPTH_WALLPAPER_KEY = "persist.avium.depthwallpaper"
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
-        private const val FAKE_BL_UNLOCK_KEY = "persist.avium.fakeblunlock"
+        private const val FAKE_BL_UNLOCK_STATUS_KEY = "ro.avium.status_fake_prop"
+        private const val AVIUM_INIT_CFG = "/metadata/avium/avium_init.cfg"
 
         private const val LYRIC_ENABLED_VALUE = "1"
         private const val LYRIC_DISABLED_VALUE = "0"
