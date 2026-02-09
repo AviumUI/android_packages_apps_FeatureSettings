@@ -27,6 +27,9 @@ import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import com.android.settingslib.widget.SliderPreference
 import org.exthm.featuresettings.ui.settings.SettingsCategory
 import org.exthm.featuresettings.utils.SystemPropertiesHelper
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 
 class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
@@ -152,6 +155,12 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
             SystemPropertiesHelper.set(FORCE_SCREENSHOT_KEY, targetValue)
         }
 
+        bindSwitch(KEY_FAKE_BL_UNLOCK, SystemPropertiesHelper.getBoolean(FAKE_BL_UNLOCK_KEY, false)) { enabled ->
+            val targetValue = if (enabled) "true" else "false"
+            SystemPropertiesHelper.set(FAKE_BL_UNLOCK_KEY, targetValue)
+            writeFakeBlUnlockToConfig(targetValue)
+        }
+
         val screenOcrPref = findPreference<SwitchPreferenceCompat>(KEY_SCREEN_OCR)
         val screenOcrHighPref = findPreference<SliderPreference>(KEY_SCREEN_OCR_HIGH)
         if (gmsEnabled) {
@@ -185,6 +194,57 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
                 true
             }
         }
+    }
+
+    private fun writeFakeBlUnlockToConfig(value: String) {
+        Thread {
+            try {
+                val configFile = File("/metadata/avium/avium_init.cfg")
+                val parentDir = configFile.parentFile
+                if (parentDir != null && !parentDir.exists()) {
+                    if (!parentDir.mkdirs()) {
+                        SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+                        return@Thread
+                    }
+                }
+
+                val existingContent = try {
+                    if (configFile.exists()) {
+                        configFile.readText()
+                    } else {
+                        ""
+                    }
+                } catch (e: Exception) {
+                    ""
+                }
+
+                val lines = existingContent.split("\n").toMutableList()
+                val fakePropLine = "set_fake_prop=$value"
+
+                var found = false
+                for (i in lines.indices) {
+                    if (lines[i].startsWith("set_fake_prop=")) {
+                        lines[i] = fakePropLine
+                        found = true
+                        break
+                    }
+                }
+
+                if (!found) {
+                    lines.add(fakePropLine)
+                }
+
+                try {
+                    FileWriter(configFile).use { writer ->
+                        writer.write(lines.joinToString("\n"))
+                    }
+                } catch (e: IOException) {
+                    SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+                }
+            } catch (e: Exception) {
+                SystemPropertiesHelper.set("persist.avium.fakeblunlock.value", value)
+            }
+        }.start()
     }
 
     private fun bindSwitch(key: String, initialValue: Boolean, onChange: (Boolean) -> Unit) {
@@ -355,6 +415,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
         private const val DEPTH_WALLPAPER_KEY = "persist.avium.depthwallpaper"
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
+        private const val FAKE_BL_UNLOCK_KEY = "persist.avium.fakeblunlock"
 
         private const val LYRIC_ENABLED_VALUE = "1"
         private const val LYRIC_DISABLED_VALUE = "0"
@@ -375,6 +436,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val KEY_DEPTH_WALLPAPER_SETTINGS = "depth_wallpaper_settings"
         private const val KEY_LOCKSCREEN_DIM = "lockscreen_dim"
         private const val KEY_FORCE_SCREENSHOT = "force_screenshot"
+        private const val KEY_FAKE_BL_UNLOCK = "fake_bl_unlock"
         private const val KEY_SCREEN_OCR = "screen_ocr"
         private const val KEY_SCREEN_OCR_HIGH = "screen_ocr_high"
 

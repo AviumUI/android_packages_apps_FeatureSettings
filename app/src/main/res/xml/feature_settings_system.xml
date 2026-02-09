@@ -25,6 +25,12 @@
         android:defaultValue="false" />
 
     <SwitchPreferenceCompat
+        android:key="fake_bl_unlock"
+        android:title="@string/fake_bl_unlock_title"
+        android:summary="@string/fake_bl_unlock_summary"
+        android:defaultValue="false" />
+
+    <SwitchPreferenceCompat
         android:key="screen_ocr"
         android:title="@string/screen_ocr_title"
         android:summary="@string/screen_ocr_summary"
