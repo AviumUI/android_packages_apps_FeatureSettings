@@ -28,12 +28,18 @@
     <string name="custom_lockscreen_summary">点击跳转到自定义锁屏设置</string>
     <string name="custom_lockscreen_switch_summary">启用自定义锁屏功能</string>
     <string name="custom_lockscreen_settings_title">自定义锁屏设置</string>
-    <string name="fake_bl_unlock_title">强制欺骗bl解锁状态</string>
-    <string name="fake_bl_unlock_summary">开启后需要重启才能生效</string>
+    <string name="fake_bl_unlock_title">伪装 Bootloader 解锁状态</string>
+    <string name="fake_bl_unlock_summary">重启生效</string>
+    <string name="fake_bl_unlock_locked_title">无法更改设置</string>
+    <string name="fake_bl_unlock_locked_message">维护者已开启 AVIUM_FORCE_SET_FAKE_PROP，此设置无法变更</string>
+    <string name="fake_bl_unlock_reboot_message">启用伪装 Bootloader 解锁状态需要重启。</string>
+    <string name="reboot_dialog_reboot_later">稍后重启</string>
+    <string name="reboot_dialog_reboot_now">立即重启</string>
     <string name="depth_wallpaper_title">景深壁纸</string>
     <string name="depth_wallpaper_summary">为锁屏启用景深效果,点击进入景深设置</string>
     <string name="depth_wallpaper_switch_summary">为锁屏启用景深效果</string>
     <string name="depth_wallpaper_settings_title">景深壁纸设置</string>
+    <string name="system_group_misc">杂项</string>
     <string name="force_screenshot_title">强制截图</string>
     <string name="force_screenshot_summary">屏蔽 FLAG_SECURE 导致的拒绝截图</string>
     <string name="category_status_bar">状态栏</string>
@@ -46,4 +52,5 @@
     <string name="category_privacy_security_summary">传感器与隐私控制</string>
     <string name="category_lockscreen_summary">锁屏显示与交互</string>
     <string name="category_system_summary">系统工具与截图能力</string>
+    <string name="system_group_spoof">伪装</string>
 </resources>
