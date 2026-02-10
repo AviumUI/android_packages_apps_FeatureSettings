@@ -81,7 +81,8 @@
                 android:text="@string/category_status_bar_summary"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="13sp"
-                android:maxLines="2" />
+                android:maxLines="2"
+                android:minLines="2" />
         </LinearLayout>
 
         <LinearLayout
@@ -139,7 +140,8 @@
                 android:text="@string/category_system_summary"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="13sp"
-                android:maxLines="2" />
+                android:maxLines="2"
+                android:minLines="2" />
         </LinearLayout>
     </LinearLayout>
 
@@ -204,7 +206,8 @@
                 android:text="@string/category_desktop_summary"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="13sp"
-                android:maxLines="2" />
+                android:maxLines="2"
+                android:minLines="2" />
         </LinearLayout>
 
         <LinearLayout
@@ -262,7 +265,8 @@
                 android:text="@string/category_lockscreen_summary"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="13sp"
-                android:maxLines="2" />
+                android:maxLines="2"
+                android:minLines="2" />
         </LinearLayout>
     </LinearLayout>
 
@@ -326,7 +330,8 @@
                 android:text="@string/category_privacy_security_summary"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="13sp"
-                android:maxLines="2" />
+                android:maxLines="2"
+                android:minLines="2" />
         </LinearLayout>
 
         <View
