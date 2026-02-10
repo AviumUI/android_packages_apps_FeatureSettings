@@ -24,7 +24,38 @@
             android:title="@string/fake_bl_unlock_title"
             android:summary="@string/fake_bl_unlock_summary"
             android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="vbmeta_update"
+            android:title="@string/vbmeta_update_title"
+            android:summary="@string/vbmeta_update_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_enable_spoof"
+            android:title="@string/pi_enable_spoof_title"
+            android:summary="@string/pi_enable_spoof_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_gms_cert_chain"
+            android:title="@string/pi_gms_cert_chain_title"
+            android:summary="@string/pi_gms_cert_chain_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_games_spoof"
+            android:title="@string/pi_games_spoof_title"
+            android:summary="@string/pi_games_spoof_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_photos_spoof"
+            android:title="@string/pi_photos_spoof_title"
+            android:summary="@string/pi_photos_spoof_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_netflix_spoof"
+            android:title="@string/pi_netflix_spoof_title"
+            android:summary="@string/pi_netflix_spoof_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/system_group_misc">
         <SwitchPreferenceCompat
             android:key="force_screenshot"

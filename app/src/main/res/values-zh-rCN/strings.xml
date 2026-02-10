@@ -35,10 +35,21 @@
     <string name="fake_bl_unlock_reboot_message">您必须重新启动设备，才能更改此设置项。</string>
     <string name="reboot_dialog_reboot_later">稍后重启</string>
     <string name="reboot_dialog_reboot_now">立即重启</string>
+    <string name="pi_enable_spoof_title">Google Play 验证伪装</string>
+    <string name="pi_enable_spoof_summary">将你的设备伪装成其他的型号以通过 Google Play 完整性验证</string>
+    <string name="pi_gms_cert_chain_title">关闭强制严格完整性检查</string>
+    <string name="pi_gms_cert_chain_summary">启用后，不会从有效的自定义密钥箱中执行强制严格完整性检查，而是依靠Google Play 完整性欺骗来修复Google Pay等应用程序</string>
+    <string name="pi_games_spoof_title">游戏伪装</string>
+    <string name="pi_games_spoof_summary">将你的设备伪装成其他的型号以获得更好的游戏体验</string>
+    <string name="pi_photos_spoof_title">相册伪装</string>
+    <string name="pi_photos_spoof_summary">将你的设备伪装成 Google Pixel XL 以获取不限量的 Google 相册中照片和视频的备份</string>
+    <string name="pi_netflix_spoof_title">Netflix 伪装</string>
+    <string name="pi_netflix_spoof_summary">将你的设备伪装成其他的型号以获得 Netflix 认证</string>
     <string name="depth_wallpaper_title">景深壁纸</string>
     <string name="depth_wallpaper_summary">为锁屏启用景深效果,点击进入景深设置</string>
     <string name="depth_wallpaper_switch_summary">为锁屏启用景深效果</string>
     <string name="depth_wallpaper_settings_title">景深壁纸设置</string>
+    <string name="vbmeta_update_summary">在 Bootloader 没有提供 vbmeta digest 时生成一个</string>
     <string name="system_group_misc">杂项</string>
     <string name="force_screenshot_title">强制截图</string>
     <string name="force_screenshot_summary">屏蔽 FLAG_SECURE 导致的拒绝截图</string>
@@ -53,4 +64,5 @@
     <string name="category_lockscreen_summary">锁屏显示与交互</string>
     <string name="category_system_summary">系统工具与截图能力</string>
     <string name="system_group_spoof">伪装</string>
+    <string name="vbmeta_update_title">生成 vbmeta digest</string>
 </resources>
