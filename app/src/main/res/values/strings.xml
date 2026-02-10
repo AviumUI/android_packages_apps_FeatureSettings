@@ -53,6 +53,18 @@
     <string name="fake_bl_unlock_reboot_message">A reboot is required for the change to take effect.</string>
     <string name="reboot_dialog_reboot_later">Reboot later</string>
     <string name="reboot_dialog_reboot_now">Reboot now</string>
+    <string name="vbmeta_update_title">Generate vbmeta digest</string>
+    <string name="vbmeta_update_summary">Provide a vbmeta digest if bootloader don\'t provide it</string>
+    <string name="pi_enable_spoof_title">Google Play Integrity spoof</string>
+    <string name="pi_enable_spoof_summary">Spoof your device as different model for Google Play Integrity</string>
+    <string name="pi_gms_cert_chain_title">Disable forcing strong integrity</string>
+    <string name="pi_gms_cert_chain_summary">When enabled, do not enforce strong integrity from valid custom keybox and depend on Google Play Integrity spoof to fix apps like Google Pay</string>
+    <string name="pi_games_spoof_title">Games spoof</string>
+    <string name="pi_games_spoof_summary">Spoof your device as different model for games</string>
+    <string name="pi_photos_spoof_title">Photos spoof</string>
+    <string name="pi_photos_spoof_summary">Spoof your device as different model for photos</string>
+    <string name="pi_netflix_spoof_title">Netflix spoof</string>
+    <string name="pi_netflix_spoof_summary">Spoof your device as different model for Netflix</string>
 
     <!-- System -> Misc -->
     <string name="system_group_misc">Misc</string>
