@@ -16,12 +16,17 @@
 
 package org.exthm.featuresettings
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
@@ -29,10 +34,35 @@ import com.android.settingslib.widget.SliderPreference
 import org.exthm.featuresettings.ui.settings.SettingsCategory
 import org.exthm.featuresettings.utils.SystemPropertiesHelper
 import java.io.File
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.StringReader
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
+import java.io.IOException
+import android.util.Log
+import android.widget.Toast
 
 class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
     private var installedApps: List<AppInfo> = emptyList()
+    private var keyboxFilePickerLauncher: ActivityResultLauncher<Intent>? = null
+    private var keyboxLoadPref: Preference? = null
+    private var keyboxClearPref: Preference? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        keyboxFilePickerLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val uri = result.data?.data
+                handleKeyboxFileSelected(uri)
+            }
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         val categoryId = arguments?.getString(ARG_CATEGORY)
@@ -244,11 +274,173 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         /*
          * Bind PIF settings
          */
-        bindSecureToggle(KEY_PI_ENABLE_SPOOF, Settings.Secure.PI_ENABLE_SPOOF)
-        bindSecureToggle(KEY_PI_GMS_CERT_CHAIN, Settings.Secure.PI_GMS_CERT_CHAIN)
-        bindSecureToggle(KEY_PI_GAMES_SPOOF, Settings.Secure.PI_GAMES_SPOOF)
-        bindSecureToggle(KEY_PI_PHOTOS_SPOOF, Settings.Secure.PI_PHOTOS_SPOOF)
-        bindSecureToggle(KEY_PI_NETFLIX_SPOOF, Settings.Secure.PI_NETFLIX_SPOOF)
+        bindSettingToggle(KEY_PI_ENABLE_SPOOF, Settings.Secure.PI_ENABLE_SPOOF, SettingTable.SECURE)
+        bindSettingToggle(KEY_PI_GMS_CERT_CHAIN, Settings.Secure.PI_GMS_CERT_CHAIN, SettingTable.SECURE)
+        bindSettingToggle(KEY_PI_GAMES_SPOOF, Settings.Secure.PI_GAMES_SPOOF, SettingTable.SECURE)
+        bindSettingToggle(KEY_PI_PHOTOS_SPOOF, Settings.Secure.PI_PHOTOS_SPOOF, SettingTable.SECURE)
+        bindSettingToggle(KEY_PI_NETFLIX_SPOOF, Settings.Secure.PI_NETFLIX_SPOOF, SettingTable.SECURE)
+        bindKeyboxPreferences()
+    }
+
+    private fun bindKeyboxPreferences() {
+        keyboxLoadPref = findPreference(KEY_KEYBOX_DATA_LOAD)
+        keyboxClearPref = findPreference(KEY_KEYBOX_DATA_CLEAR)
+
+        updateKeyboxPreferences()
+
+        keyboxLoadPref?.isPersistent = false
+        keyboxLoadPref?.setOnPreferenceClickListener {
+            val launcher = keyboxFilePickerLauncher ?: return@setOnPreferenceClickListener true
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                type = "*/*"
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/xml", "application/xml"))
+                addCategory(Intent.CATEGORY_OPENABLE)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            launcher.launch(intent)
+            true
+        }
+
+        keyboxClearPref?.isPersistent = false
+        keyboxClearPref?.setOnPreferenceClickListener {
+            Settings.Secure.putString(requireContext().contentResolver, Settings.Secure.KEYBOX_DATA, null)
+            Toast.makeText(requireContext(), getString(R.string.keybox_toast_file_cleared), Toast.LENGTH_SHORT).show()
+            updateKeyboxPreferences()
+            true
+        }
+    }
+
+    private fun updateKeyboxPreferences() {
+        val hasData = Settings.Secure.getString(
+            requireContext().contentResolver, Settings.Secure.KEYBOX_DATA
+        ) != null
+        keyboxLoadPref?.summary = getString(
+            if (hasData) R.string.keybox_data_loaded_summary else R.string.keybox_data_summary
+        )
+        keyboxClearPref?.isEnabled = hasData
+        keyboxClearPref?.isVisible = hasData
+    }
+
+    private fun handleKeyboxFileSelected(uri: Uri?) {
+        val ctx = requireContext()
+        val cr: ContentResolver = ctx.contentResolver
+
+        if (uri == null) {
+            Toast.makeText(ctx, getString(R.string.keybox_toast_invalid_file_selected), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val type = cr.getType(uri)
+        val isXmlMime = "text/xml" == type || "application/xml" == type
+        val hasXmlExt = uri.path?.lowercase()?.endsWith(".xml") == true
+        if (!isXmlMime && !hasXmlExt) {
+            Toast.makeText(ctx, getString(R.string.keybox_toast_invalid_file_selected), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            cr.openInputStream(uri).use { inputStream ->
+                if (inputStream == null) {
+                    Toast.makeText(ctx, getString(R.string.keybox_toast_invalid_file_selected), Toast.LENGTH_SHORT).show()
+                    return
+                }
+                val xml = readXml(inputStream)
+                if (!validateXml(xml)) {
+                    Toast.makeText(ctx, getString(R.string.keybox_toast_missing_data), Toast.LENGTH_SHORT).show()
+                    return
+                }
+                Settings.Secure.putString(cr, Settings.Secure.KEYBOX_DATA, xml)
+                Toast.makeText(ctx, getString(R.string.keybox_toast_file_loaded), Toast.LENGTH_SHORT).show()
+                updateKeyboxPreferences()
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "Failed to read XML file", e)
+            Toast.makeText(ctx, getString(R.string.keybox_toast_invalid_file_selected), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun readXml(inputStream: InputStream): String {
+        BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8)).use { reader ->
+            val xmlContent = StringBuilder()
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                xmlContent.append(line).append('\n')
+            }
+            return xmlContent.toString()
+        }
+    }
+
+    private fun validateXml(xml: String): Boolean {
+        var hasEcdsaKey = false
+        var hasRsaKey = false
+        var hasEcdsaPrivKey = false
+        var hasRsaPrivKey = false
+        var ecdsaCertCount = 0
+        var rsaCertCount = 0
+        var numberOfKeyboxes = -1
+
+        return try {
+            val parser = XmlPullParserFactory.newInstance().newPullParser()
+            parser.setInput(StringReader(xml))
+
+            var currentAlg: String? = null
+
+            var eventType = parser.next()
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    when (parser.name) {
+                        "NumberOfKeyboxes" -> {
+                            parser.next()
+                            if (parser.eventType == XmlPullParser.TEXT) {
+                                numberOfKeyboxes = parser.text.trim().toIntOrNull() ?: -1
+                            }
+                        }
+                        "Key" -> {
+                            currentAlg = parser.getAttributeValue(null, "algorithm")
+                            when {
+                                "ecdsa".equals(currentAlg, ignoreCase = true) -> hasEcdsaKey = true
+                                "rsa".equals(currentAlg, ignoreCase = true) -> hasRsaKey = true
+                                else -> currentAlg = null
+                            }
+                        }
+                        "PrivateKey" -> {
+                            val format = parser.getAttributeValue(null, "format")
+                            if (!"pem".equals(format, ignoreCase = true)) {
+                                Log.w(TAG, "Invalid or missing format for PrivateKey")
+                                return false
+                            }
+                            if ("ecdsa".equals(currentAlg, ignoreCase = true)) {
+                                hasEcdsaPrivKey = true
+                            } else if ("rsa".equals(currentAlg, ignoreCase = true)) {
+                                hasRsaPrivKey = true
+                            }
+                        }
+                        "Certificate" -> {
+                            val format = parser.getAttributeValue(null, "format")
+                            if (!"pem".equals(format, ignoreCase = true)) {
+                                Log.w(TAG, "Invalid or missing format for Certificate")
+                                return false
+                            }
+                            if ("ecdsa".equals(currentAlg, ignoreCase = true)) {
+                                ecdsaCertCount++
+                            } else if ("rsa".equals(currentAlg, ignoreCase = true)) {
+                                rsaCertCount++
+                            }
+                        }
+                    }
+                } else if (eventType == XmlPullParser.END_TAG && parser.name == "Key") {
+                    currentAlg = null
+                }
+                eventType = parser.next()
+            }
+
+            numberOfKeyboxes == 1
+                && hasEcdsaKey && hasEcdsaPrivKey && ecdsaCertCount >= 1
+                && hasRsaKey && hasRsaPrivKey && rsaCertCount >= 1
+        } catch (e: Exception) {
+            Log.e(TAG, "XML validation failed", e)
+            false
+        }
     }
 
     // TODO: Move this to utils
@@ -353,13 +545,25 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     }
 
     /*
-     * A utility to bind secure settings
+     * A utility to bind system/secure settings
      */
-    private fun bindSecureToggle(prefKey: String, settingKey: String) {
+    private enum class SettingTable {
+        SYSTEM,
+        SECURE
+    }
+
+    private fun bindSettingToggle(prefKey: String, settingKey: String, table: SettingTable) {
         val resolver = requireContext().contentResolver
-        val enabled = Settings.Secure.getInt(resolver, settingKey, 0) == 1
+        val enabled = when (table) {
+            SettingTable.SYSTEM -> Settings.System.getInt(resolver, settingKey, 0) == 1
+            SettingTable.SECURE -> Settings.Secure.getInt(resolver, settingKey, 0) == 1
+        }
         bindSwitch(prefKey, enabled) { isEnabled ->
-            Settings.Secure.putInt(resolver, settingKey, if (isEnabled) 1 else 0)
+            val value = if (isEnabled) 1 else 0
+            when (table) {
+                SettingTable.SYSTEM -> Settings.System.putInt(resolver, settingKey, value)
+                SettingTable.SECURE -> Settings.Secure.putInt(resolver, settingKey, value)
+            }
         }
     }
 
@@ -517,6 +721,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     )
 
     companion object {
+        private const val TAG = "CategorySettingsFragment"
         private const val ARG_CATEGORY = "arg_category"
 
         private const val ENABLED_VALUE = "1"
@@ -563,6 +768,8 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val KEY_PI_GAMES_SPOOF = "pi_games_spoof"
         private const val KEY_PI_PHOTOS_SPOOF = "pi_photos_spoof"
         private const val KEY_PI_NETFLIX_SPOOF = "pi_netflix_spoof"
+        private const val KEY_KEYBOX_DATA_LOAD = "keybox_data_load"
+        private const val KEY_KEYBOX_DATA_CLEAR = "keybox_data_clear"
 
         // System -> Misc
         private const val GMS_STATUS_KEY = "ro.avium.gms_status"

@@ -13,6 +13,7 @@ android_app {
 
     static_libs: [
         "kotlin-stdlib",
+        "androidx.activity_activity",
         "androidx.preference_preference",
         "SettingsLib",
     ],
