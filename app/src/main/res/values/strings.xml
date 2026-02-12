@@ -31,6 +31,7 @@
     <string name="status_bar_lyric_title">Status Bar Lyrics</string>
     <string name="status_bar_lyric_summary">When playing music, display lyrics in status bar</string>
     <string name="statusbar_notifications">Statusbar Notification</string>
+    <string name="quick_settings_title">Customize quick settings</string>
     <string name="statusbar_colored_icons_title">Colored icons</string>
     <string name="statusbar_colored_icons_summary">Use proper app icons for notification icons in status bar</string>
     <string name="show_squiggle_animation_title">Show squiggle animation</string>
