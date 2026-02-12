@@ -16,6 +16,24 @@
       "message": "why no report clear status",
       "revId": "2b2d958714a1133090523cca2adb3bd0adb129f2",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba56aaf_fbe420f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2026-02-12T15:35:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d2d07a5_78cae0ce",
+      "revId": "2b2d958714a1133090523cca2adb3bd0adb129f2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
