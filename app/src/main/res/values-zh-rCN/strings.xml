@@ -24,6 +24,8 @@
     <string name="statusbar_notifications">状态栏通知</string>
     <string name="statusbar_colored_icons_title">彩色图标</string>
     <string name="statusbar_colored_icons_summary">通知栏图标显示为应用原始图标</string>
+    <string name="show_squiggle_animation_title">显示波纹动画</string>
+    <string name="show_squiggle_animation_summary">在媒体面板显示波纹动画\n更改后需切换音乐、暂停音乐或拖动进度条生效</string>
     <string name="music_lockscreen_title">音乐锁屏</string>
     <string name="music_lockscreen_summary">锁屏时将显示黑胶唱片，上滑退出</string>
     <string name="music_lockscreen_unlock_title">音乐锁屏常显</string>
