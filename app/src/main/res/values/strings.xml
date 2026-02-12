@@ -29,6 +29,9 @@
     <string name="app_selection_dialog_title">Select Apps</string>
     <string name="status_bar_lyric_title">Status Bar Lyrics</string>
     <string name="status_bar_lyric_summary">When playing music, display lyrics in status bar</string>
+    <string name="statusbar_notifications">Statusbar Notification</string>
+    <string name="statusbar_colored_icons_title">Colored icons</string>
+    <string name="statusbar_colored_icons_summary">Use proper app icons for notification icons in status bar</string>
     <string name="music_lockscreen_title">Music Lockscreen</string>
     <string name="music_lockscreen_summary">Display vinyl record on lockscreen, swipe up to exit</string>
     <string name="music_lockscreen_unlock_title">Keep Music Lockscreen On</string>
