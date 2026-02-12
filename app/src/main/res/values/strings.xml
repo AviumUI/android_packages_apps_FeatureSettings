@@ -66,8 +66,8 @@
     <string name="vbmeta_update_summary">Provide a vbmeta digest if bootloader don\'t provide it</string>
     <string name="pi_enable_spoof_title">Google Play Integrity spoof</string>
     <string name="pi_enable_spoof_summary">Spoof your device as different model for Google Play Integrity</string>
-    <string name="pi_gms_cert_chain_title">Disable forcing strong integrity</string>
-    <string name="pi_gms_cert_chain_summary">When enabled, do not enforce strong integrity from valid custom keybox and depend on Google Play Integrity spoof to fix apps like Google Pay</string>
+    <string name="pi_gms_cert_chain_title">Allow GMS to read attestation certificate chain</string>
+    <string name="pi_gms_cert_chain_summary">When enabled, GMS can read the certificate chain for verification; when disabled, access is blocked</string>
     <string name="pi_games_spoof_title">Games spoof</string>
     <string name="pi_games_spoof_summary">Spoof your device as different model for a better gaming experience</string>
     <string name="pi_photos_spoof_title">Photos spoof</string>
@@ -75,8 +75,8 @@
     <string name="pi_netflix_spoof_title">Netflix spoof</string>
     <string name="pi_netflix_spoof_summary">Spoof your device as different model for Netflix</string>
     <string name="keybox_data_title">Keybox attestation override</string>
-    <string name="keybox_data_summary">Load a custom keybox XML to override device key attestation</string>
-    <string name="keybox_data_loaded_summary">Custom keybox XML loaded. Tap to load another keybox.</string>
+    <string name="keybox_data_summary">Load a custom keybox to replace the attestation certificate chain</string>
+    <string name="keybox_data_loaded_summary">Custom keybox loaded. Tap to load another keybox.</string>
     <string name="keybox_data_clear_title">Clear keybox data</string>
     <string name="keybox_delete_content_description">Clear keybox data</string>
     <string name="keybox_toast_invalid_file_selected">Not an XML file. Choose a valid keybox XML.</string>
