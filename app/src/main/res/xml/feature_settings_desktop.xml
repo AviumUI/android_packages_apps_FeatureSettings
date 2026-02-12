@@ -23,4 +23,9 @@
         android:summary="@string/launcher_blur_summary"
         android:defaultValue="false" />
 
+    <Preference
+        android:key="desktop_more_settings"
+        android:title="@string/desktop_more_settings"
+        android:widgetLayout="@layout/preference_widget_chevron" />
+
 </PreferenceScreen>
