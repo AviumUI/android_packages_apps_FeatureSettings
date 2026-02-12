@@ -21,7 +21,8 @@
     <string name="app_selection_dialog_title">选择应用</string>
     <string name="status_bar_lyric_title">状态栏歌词</string>
     <string name="status_bar_lyric_summary">当播放音乐时，在状态栏显示歌词</string>
-    <string name="statusbar_notifications">状态栏通知</string>
+    <string name="statusbar_settings_title">状态栏设置</string>
+    <string name="quick_settings_title">Quick Settings设置</string>
     <string name="statusbar_colored_icons_title">彩色图标</string>
     <string name="statusbar_colored_icons_summary">通知栏图标显示为应用原始图标</string>
     <string name="show_squiggle_animation_title">显示波纹动画</string>
