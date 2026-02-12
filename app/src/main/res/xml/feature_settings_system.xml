@@ -35,11 +35,6 @@
             android:summary="@string/pi_enable_spoof_summary"
             android:defaultValue="false" />
         <SwitchPreferenceCompat
-            android:key="pi_gms_cert_chain"
-            android:title="@string/pi_gms_cert_chain_title"
-            android:summary="@string/pi_gms_cert_chain_summary"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
             android:key="pi_games_spoof"
             android:title="@string/pi_games_spoof_title"
             android:summary="@string/pi_games_spoof_summary"
@@ -55,6 +50,11 @@
             android:summary="@string/pi_netflix_spoof_summary"
             android:defaultValue="false" />
 
+        <SwitchPreferenceCompat
+            android:key="pi_gms_cert_chain"
+            android:title="@string/pi_gms_cert_chain_title"
+            android:summary="@string/pi_gms_cert_chain_summary"
+            android:defaultValue="false" />
         <Preference
             android:key="keybox_data_load"
             android:title="@string/keybox_data_title"
