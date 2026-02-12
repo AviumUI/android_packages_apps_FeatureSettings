@@ -95,6 +95,19 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         bindSwitch(KEY_LAUNCHER_BLUR, SystemPropertiesHelper.getBoolean(LAUNCHER_BLUR_KEY, false)) { enabled ->
             SystemPropertiesHelper.set(LAUNCHER_BLUR_KEY, enabled.toString())
         }
+
+        val moreSettingsPref = findPreference<Preference>(KEY_DESKTOP_MORE_SETTINGS)
+        val intent = Intent().setClassName(
+            LAUNCHER_PACKAGE,
+            LAUNCHER_SETTINGS_ACTIVITY
+        )
+        val canResolve = intent.resolveActivity(requireContext().packageManager) != null
+        moreSettingsPref?.isEnabled = canResolve
+        moreSettingsPref?.isPersistent = false
+        moreSettingsPref?.setOnPreferenceClickListener {
+            startActivity(intent)
+            true
+        }
     }
 
     /**
@@ -743,6 +756,9 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         // Desktop
         private const val LAUNCHER_BLUR_KEY = "persist.avium.launcherblur"
         private const val KEY_LAUNCHER_BLUR = "launcher_blur"
+        private const val KEY_DESKTOP_MORE_SETTINGS = "desktop_more_settings"
+        private const val LAUNCHER_PACKAGE = "com.android.launcher3"
+        private const val LAUNCHER_SETTINGS_ACTIVITY = "com.android.launcher3.settings.SettingsActivity"
 
         // Privacy & Security
         private const val DISABLE_SENSOR_KEY = "persist.avium.disablesensor"

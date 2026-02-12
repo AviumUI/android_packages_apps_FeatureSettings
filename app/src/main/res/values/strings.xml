@@ -5,6 +5,7 @@
     <string name="lockscreen_dim_summary">When enabled, lock screen wallpaper will not be forced to dim</string>
     <string name="launcher_blur_title">Launcher Transition Blur</string>
     <string name="launcher_blur_summary">Enable full-layer background blur effect for launcher transitions such as app launch and exit</string>
+    <string name="desktop_more_settings">More home settings</string>
 
     <string name="main_hint">Lab features may be unstable</string>
     <string name="main_ps">Enabling these features may affect system stability and performance</string>
