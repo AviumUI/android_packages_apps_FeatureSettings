@@ -17,6 +17,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/category_status_bar">
 
+    <PreferenceCategory
+        android:title="@string/statusbar_notifications">
+
+        <SwitchPreferenceCompat
+            android:key="statusbar_colored_icons"
+            android:title="@string/statusbar_colored_icons_title"
+            android:summary="@string/statusbar_colored_icons_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
     <SwitchPreferenceCompat
         android:key="status_bar_lyric"
         android:title="@string/status_bar_lyric_title"
