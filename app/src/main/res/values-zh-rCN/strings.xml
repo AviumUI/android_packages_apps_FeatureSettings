@@ -21,7 +21,8 @@
     <string name="app_selection_dialog_title">选择应用</string>
     <string name="status_bar_lyric_title">状态栏歌词</string>
     <string name="status_bar_lyric_summary">当播放音乐时，在状态栏显示歌词</string>
-    <string name="statusbar_notifications">状态栏通知</string>
+    <string name="statusbar_settings_title">状态栏设置</string>
+    <string name="quick_settings_title">自定义快速设置</string>
     <string name="statusbar_colored_icons_title">彩色图标</string>
     <string name="statusbar_colored_icons_summary">通知栏图标显示为应用原始图标</string>
     <string name="show_squiggle_animation_title">显示波纹动画</string>
@@ -75,7 +76,7 @@
     <string name="category_privacy_security">传感器</string>
     <string name="category_lockscreen">锁屏</string>
     <string name="category_system">系统</string>
-    <string name="category_status_bar_summary">调整状态栏和QS</string>
+    <string name="category_status_bar_summary">调整状态栏和快速设置</string>
     <string name="category_desktop_summary">桌面切换与启动特效</string>
     <string name="category_privacy_security_summary">传感器与隐私控制</string>
     <string name="category_lockscreen_summary">锁屏显示与交互</string>

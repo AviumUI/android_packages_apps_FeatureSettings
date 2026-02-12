@@ -18,7 +18,7 @@
     android:title="@string/category_status_bar">
 
     <PreferenceCategory
-        android:title="@string/statusbar_notifications">
+        android:title="@string/statusbar_settings_title">
 
         <SwitchPreferenceCompat
             android:key="statusbar_colored_icons"
@@ -27,22 +27,26 @@
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
-            android:key="show_media_squiggle_animation"
-            android:title="@string/show_squiggle_animation_title"
-            android:summary="@string/show_squiggle_animation_summary"
-            android:defaultValue="true" />
-
-        <SwitchPreferenceCompat
             android:key="statusbar_notif_count"
             android:title="@string/status_bar_notif_count_title"
             android:summary="@string/status_bar_notif_count_summary"
             android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="status_bar_lyric"
+            android:title="@string/status_bar_lyric_title"
+            android:summary="@string/status_bar_lyric_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
-    <SwitchPreferenceCompat
-        android:key="status_bar_lyric"
-        android:title="@string/status_bar_lyric_title"
-        android:summary="@string/status_bar_lyric_summary"
-        android:defaultValue="false" />
+    <PreferenceCategory
+        android:title="@string/quick_settings_title">
+
+        <SwitchPreferenceCompat
+            android:key="show_media_squiggle_animation"
+            android:title="@string/show_squiggle_animation_title"
+            android:summary="@string/show_squiggle_animation_summary"
+            android:defaultValue="true" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
