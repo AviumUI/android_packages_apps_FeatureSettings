@@ -25,6 +25,12 @@
             android:title="@string/statusbar_colored_icons_title"
             android:summary="@string/statusbar_colored_icons_summary"
             android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="show_media_squiggle_animation"
+            android:title="@string/show_squiggle_animation_title"
+            android:summary="@string/show_squiggle_animation_summary"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
     <SwitchPreferenceCompat
