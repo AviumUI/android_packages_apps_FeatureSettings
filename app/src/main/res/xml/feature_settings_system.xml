@@ -54,6 +54,15 @@
             android:title="@string/pi_netflix_spoof_title"
             android:summary="@string/pi_netflix_spoof_summary"
             android:defaultValue="false" />
+
+        <Preference
+            android:key="keybox_data_load"
+            android:title="@string/keybox_data_title"
+            android:summary="@string/keybox_data_summary" />
+
+        <Preference
+            android:key="keybox_data_clear"
+            android:title="@string/keybox_data_clear_title" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/system_group_misc">

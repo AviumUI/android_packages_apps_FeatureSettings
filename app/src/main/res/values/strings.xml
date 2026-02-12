@@ -65,6 +65,15 @@
     <string name="pi_photos_spoof_summary">Spoof your device as Google Pixel XL to get unlimited Google Photos backup storage for photos and videos</string>
     <string name="pi_netflix_spoof_title">Netflix spoof</string>
     <string name="pi_netflix_spoof_summary">Spoof your device as different model for Netflix</string>
+    <string name="keybox_data_title">Keybox attestation override</string>
+    <string name="keybox_data_summary">Load a custom keybox XML to override device key attestation</string>
+    <string name="keybox_data_loaded_summary">Custom keybox XML loaded. Tap to load another keybox.</string>
+    <string name="keybox_data_clear_title">Clear keybox data</string>
+    <string name="keybox_delete_content_description">Clear keybox data</string>
+    <string name="keybox_toast_invalid_file_selected">Not an XML file. Choose a valid keybox XML.</string>
+    <string name="keybox_toast_missing_data">Invalid keybox XML: required fields missing</string>
+    <string name="keybox_toast_file_loaded">Keybox loaded</string>
+    <string name="keybox_toast_file_cleared">Keybox cleared</string>
 
     <!-- System -> Misc -->
     <string name="system_group_misc">Misc</string>
