@@ -89,6 +89,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         bindSwitch(KEY_STATUS_BAR_LYRIC, enabled) { isEnabled ->
             setLyricEnabled(isEnabled)
         }
+        bindSettingToggle(KEY_STATUSBAR_COLORED_ICONS, STATUSBAR_COLORED_ICONS_KEY, SettingTable.SYSTEM)
     }
 
     private fun bindDesktopPreferences() {
@@ -749,7 +750,9 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
         // Status Bar
         private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
+        private const val STATUSBAR_COLORED_ICONS_KEY = "statusbar_colored_icons"
         private const val KEY_STATUS_BAR_LYRIC = "status_bar_lyric"
+        private const val KEY_STATUSBAR_COLORED_ICONS = "statusbar_colored_icons"
         private const val LYRIC_ENABLED_VALUE = "1"
         private const val LYRIC_DISABLED_VALUE = "0"
 
