@@ -100,6 +100,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
             SettingTable.SECURE,
             1
         )
+        bindSettingToggle(KEY_STATUSBAR_NOTIF_COUNT, STATUSBAR_NOTIF_COUNT_KEY, SettingTable.SYSTEM)
     }
 
     private fun bindDesktopPreferences() {
@@ -756,9 +757,11 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val STATUS_BAR_LYRIC_KEY = "status_bar_show_lyric"
         private const val STATUSBAR_COLORED_ICONS_KEY = "statusbar_colored_icons"
         private const val SHOW_MEDIA_SQUIGGLE_ANIMATION_KEY = "show_media_squiggle_animation"
+        private const val STATUSBAR_NOTIF_COUNT_KEY = "statusbar_notif_count"
         private const val KEY_STATUS_BAR_LYRIC = "status_bar_lyric"
         private const val KEY_STATUSBAR_COLORED_ICONS = "statusbar_colored_icons"
         private const val KEY_SHOW_MEDIA_SQUIGGLE_ANIMATION = "show_media_squiggle_animation"
+        private const val KEY_STATUSBAR_NOTIF_COUNT = "statusbar_notif_count"
         private const val LYRIC_ENABLED_VALUE = "1"
         private const val LYRIC_DISABLED_VALUE = "0"
 
