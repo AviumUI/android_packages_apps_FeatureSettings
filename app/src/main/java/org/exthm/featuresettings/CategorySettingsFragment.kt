@@ -292,7 +292,19 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
          * Bind PIF settings
          */
         bindSettingToggle(KEY_PI_ENABLE_SPOOF, Settings.Secure.PI_ENABLE_SPOOF, SettingTable.SECURE)
-        bindSettingToggle(KEY_PI_GMS_CERT_CHAIN, Settings.Secure.PI_GMS_CERT_CHAIN, SettingTable.SECURE)
+        val gmsCertPref = findPreference<SwitchPreferenceCompat>(KEY_PI_GMS_CERT_CHAIN)
+        gmsCertPref?.isPersistent = false
+        gmsCertPref?.isChecked = Settings.Secure.getInt(
+            requireContext().contentResolver,
+            Settings.Secure.PI_GMS_CERT_CHAIN,
+            0
+        ) == 1
+        gmsCertPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            val value = if (newValue as Boolean) 1 else 0
+            Settings.Secure.putInt(requireContext().contentResolver, Settings.Secure.PI_GMS_CERT_CHAIN, value)
+            updateKeyboxPreferences()
+            true
+        }
         bindSettingToggle(KEY_PI_GAMES_SPOOF, Settings.Secure.PI_GAMES_SPOOF, SettingTable.SECURE)
         bindSettingToggle(KEY_PI_PHOTOS_SPOOF, Settings.Secure.PI_PHOTOS_SPOOF, SettingTable.SECURE)
         bindSettingToggle(KEY_PI_NETFLIX_SPOOF, Settings.Secure.PI_NETFLIX_SPOOF, SettingTable.SECURE)
@@ -338,13 +350,19 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
     }
 
     private fun updateKeyboxPreferences() {
+        val gmsCertChainEnabled = Settings.Secure.getInt(
+            requireContext().contentResolver,
+            Settings.Secure.PI_GMS_CERT_CHAIN,
+            0
+        ) == 1
         val hasData = Settings.Secure.getString(
             requireContext().contentResolver, Settings.Secure.KEYBOX_DATA
         ) != null
         keyboxLoadPref?.summary = getString(
             if (hasData) R.string.keybox_data_loaded_summary else R.string.keybox_data_summary
         )
-        keyboxClearPref?.isEnabled = hasData
+        keyboxLoadPref?.isEnabled = gmsCertChainEnabled
+        keyboxClearPref?.isEnabled = gmsCertChainEnabled && hasData
         keyboxClearPref?.isVisible = hasData
     }
 
