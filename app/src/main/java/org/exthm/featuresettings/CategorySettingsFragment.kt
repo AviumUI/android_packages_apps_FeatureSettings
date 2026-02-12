@@ -76,7 +76,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
     private fun getCategoryXml(category: SettingsCategory): Int {
         return when (category) {
-            SettingsCategory.STATUS_BAR -> R.xml.feature_settings_status_bar
+            SettingsCategory.STATUS_BAR -> R.xml.feature_settings_ui
             SettingsCategory.DESKTOP -> R.xml.feature_settings_desktop
             SettingsCategory.PRIVACY_SECURITY -> R.xml.feature_settings_privacy
             SettingsCategory.LOCKSCREEN -> R.xml.feature_settings_lockscreen

@@ -11,12 +11,12 @@
     <string name="main_ps">Enabling these features may affect system stability and performance</string>
     <string name="lab_summary">Lab features, use with discretion</string>
     <string name="feature_categories_title">Categories</string>
-    <string name="category_status_bar">Status Bar</string>
+    <string name="category_status_bar">User Interface</string>
     <string name="category_desktop">Home</string>
     <string name="category_privacy_security">Sensor</string>
     <string name="category_lockscreen">Lockscreen</string>
     <string name="category_system">System</string>
-    <string name="category_status_bar_summary">Lyrics and status bar features</string>
+    <string name="category_status_bar_summary">Adjust status bar and QS</string>
     <string name="category_desktop_summary">Launcher transition effects</string>
     <string name="category_privacy_security_summary">Sensor and privacy controls</string>
     <string name="category_lockscreen_summary">Lockscreen visuals and behavior</string>

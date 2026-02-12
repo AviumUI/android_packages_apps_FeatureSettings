@@ -15,5 +15,5 @@
      limitations under the License.
 -->
 <resources>
-    <color name="feature_tile_bg_color">#FF2A2A2A</color>
+    <color name="feature_tile_bg_color">#303030</color>
 </resources>
