@@ -35,6 +35,8 @@
     <string name="statusbar_colored_icons_summary">Use proper app icons for notification icons in status bar</string>
     <string name="show_squiggle_animation_title">Show squiggle animation</string>
     <string name="show_squiggle_animation_summary">Show media panel squiggle animation\nAfter change need to switch music, pause music or move the progress bar to apply</string>
+    <string name="status_bar_notif_count_title">Notification count</string>
+    <string name="status_bar_notif_count_summary">Display the number of unread notifications on each app icon</string>
     <string name="music_lockscreen_title">Music Lockscreen</string>
     <string name="music_lockscreen_summary">Display vinyl record on lockscreen, swipe up to exit</string>
     <string name="music_lockscreen_unlock_title">Keep Music Lockscreen On</string>
