@@ -244,44 +244,6 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         }
 
         /*
-         * Bind MoonOCR settings.
-         */
-        val screenOcrPref = findPreference<SwitchPreferenceCompat>(KEY_SCREEN_OCR)
-        val screenOcrHighPref = findPreference<SliderPreference>(KEY_SCREEN_OCR_HIGH)
-        // Disable MoonOCR for gms builds
-        val gmsEnabled = SystemPropertiesHelper.getBoolean(GMS_STATUS_KEY, false)
-        if (gmsEnabled) {
-            screenOcrPref?.isVisible = false
-            screenOcrHighPref?.isVisible = false
-        } else {
-            val screenOcrEnabled = SystemPropertiesHelper.getBoolean(SCREEN_OCR_KEY, false)
-            screenOcrPref?.isPersistent = false
-            screenOcrPref?.isChecked = screenOcrEnabled
-            screenOcrHighPref?.isEnabled = screenOcrEnabled
-
-            screenOcrPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-                val enabled = newValue as Boolean
-                SystemPropertiesHelper.set(SCREEN_OCR_KEY, enabled.toString())
-                screenOcrHighPref?.isEnabled = enabled
-                true
-            }
-
-            screenOcrHighPref?.let { pref ->
-                pref.isPersistent = false
-                val minValue = pref.min
-                val maxValue = pref.max
-                val value = SystemPropertiesHelper.getInt(SCREEN_OCR_HIGH_KEY, DEFAULT_SCREEN_OCR_HIGH)
-                    .coerceIn(minValue, maxValue)
-                pref.value = value
-                pref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-                    val intValue = newValue as Int
-                    SystemPropertiesHelper.set(SCREEN_OCR_HIGH_KEY, intValue.toString())
-                    true
-                }
-            }
-        }
-
-        /*
          * Bind vbmeta update settings.
          */
         bindSwitch(KEY_VBMETA_UPDATE, SystemPropertiesHelper.getBoolean(VBMETA_UPDATE_PROP_KEY, false)) { enabled ->
@@ -832,14 +794,8 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val KEY_KEYBOX_DATA_CLEAR = "keybox_data_clear"
 
         // System -> Misc
-        private const val GMS_STATUS_KEY = "ro.avium.gms_status"
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
-        private const val SCREEN_OCR_KEY = "persist.avium.screenocr"
-        private const val SCREEN_OCR_HIGH_KEY = "persist.avium.screenocr_high"
         private const val KEY_FORCE_SCREENSHOT = "force_screenshot"
-        private const val KEY_SCREEN_OCR = "screen_ocr"
-        private const val KEY_SCREEN_OCR_HIGH = "screen_ocr_high"
-        private const val DEFAULT_SCREEN_OCR_HIGH = 6
 
         fun newInstance(categoryId: String): CategorySettingsFragment {
             return CategorySettingsFragment().apply {

@@ -88,7 +88,4 @@
     <string name="system_group_misc">Misc</string>
     <string name="force_screenshot_title">Force Screenshot</string>
     <string name="force_screenshot_summary">Bypass FLAG_SECURE to allow screenshot capture</string>
-    <string name="screen_ocr_title">Screen Text Extraction</string>
-    <string name="screen_ocr_summary">Long press gesture navigation bar to enable screen content text recognition</string>
-    <string name="screen_ocr_high_title">Gesture Recognition Height</string>
 </resources>

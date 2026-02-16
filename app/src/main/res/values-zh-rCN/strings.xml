@@ -6,9 +6,6 @@
     <string name="launcher_blur_title">桌面过渡模糊</string>
     <string name="launcher_blur_summary">为应用启动和退出等桌面过渡启用全层级背景模糊效果</string>
     <string name="desktop_more_settings">更多桌面设置</string>
-    <string name="screen_ocr_title">屏幕文字提取</string>
-    <string name="screen_ocr_summary">长按手势导航提示条启用屏幕内容文字识别功能</string>
-    <string name="screen_ocr_high_title">手势识别高度</string>
     <string name="main_hint">实验室功能，功能可能不稳定</string>
     <string name="main_ps">启用后可能会对系统稳定性和性能产生影响</string>
     <string name="lab_summary">实验室功能，酌情使用</string>
