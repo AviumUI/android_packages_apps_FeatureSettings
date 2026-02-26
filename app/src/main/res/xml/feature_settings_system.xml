@@ -29,40 +29,6 @@
             android:title="@string/vbmeta_update_title"
             android:summary="@string/vbmeta_update_summary"
             android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="pi_enable_spoof"
-            android:title="@string/pi_enable_spoof_title"
-            android:summary="@string/pi_enable_spoof_summary"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="pi_games_spoof"
-            android:title="@string/pi_games_spoof_title"
-            android:summary="@string/pi_games_spoof_summary"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="pi_photos_spoof"
-            android:title="@string/pi_photos_spoof_title"
-            android:summary="@string/pi_photos_spoof_summary"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="pi_netflix_spoof"
-            android:title="@string/pi_netflix_spoof_title"
-            android:summary="@string/pi_netflix_spoof_summary"
-            android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
-            android:key="pi_gms_cert_chain"
-            android:title="@string/pi_gms_cert_chain_title"
-            android:summary="@string/pi_gms_cert_chain_summary"
-            android:defaultValue="false" />
-        <Preference
-            android:key="keybox_data_load"
-            android:title="@string/keybox_data_title"
-            android:summary="@string/keybox_data_summary" />
-
-        <Preference
-            android:key="keybox_data_clear"
-            android:title="@string/keybox_data_clear_title" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/system_group_misc">
