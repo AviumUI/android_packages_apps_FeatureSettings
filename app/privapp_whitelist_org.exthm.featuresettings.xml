@@ -15,8 +15,5 @@
   ~ limitations under the License
   -->
 <permissions>
-    <privapp-permissions package="org.exthm.featuresettings">
-        <!-- Core -->
-        
-    </privapp-permissions>
+    <privapp-permissions package="org.exthm.featuresettings" />
 </permissions>

@@ -18,10 +18,13 @@ package org.exthm.featuresettings
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
@@ -32,6 +35,16 @@ import java.io.File
 class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
     private var installedApps: List<AppInfo> = emptyList()
+    private lateinit var keyboxPickerLauncher: ActivityResultLauncher<Array<String>>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        keyboxPickerLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            if (uri != null) {
+                importKeyboxFromUri(uri)
+            }
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         val categoryId = arguments?.getString(ARG_CATEGORY)
@@ -180,6 +193,52 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
      * handle dependence or display logic.
      */
     private fun bindSystemPreferences() {
+
+        /*
+         * Bind Play Integrity Fix settings.
+         */
+        val resolver = requireContext().contentResolver
+        val enablePref = findPreference<SwitchPreferenceCompat>(KEY_PI_ENABLE_SPOOF)
+        val pifEnabled = Settings.Secure.getInt(resolver, Settings.Secure.PI_ENABLE_SPOOF, 0) == 1
+        enablePref?.isPersistent = false
+        enablePref?.isChecked = pifEnabled
+        enablePref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            val enabled = newValue as Boolean
+            Settings.Secure.putInt(resolver, Settings.Secure.PI_ENABLE_SPOOF, if (enabled) 1 else 0)
+            updatePifDependents(enabled)
+            true
+        }
+        bindSettingToggle(KEY_PI_SPOOF_BUILD, Settings.Secure.PI_SPOOF_BUILD, SettingTable.SECURE, 1)
+        bindSettingToggle(KEY_PI_SPOOF_PROPS, Settings.Secure.PI_SPOOF_PROPS, SettingTable.SECURE, 1)
+        bindSettingToggle(KEY_PI_SPOOF_PROVIDER, Settings.Secure.PI_SPOOF_PROVIDER, SettingTable.SECURE, 1)
+        bindSettingToggle(KEY_PI_SPOOF_SIGNATURE, Settings.Secure.PI_SPOOF_SIGNATURE, SettingTable.SECURE, 0)
+        bindSettingToggle(KEY_PI_SPOOF_VENDING_BUILD, Settings.Secure.PI_SPOOF_VENDING_BUILD, SettingTable.SECURE, 1)
+        bindSettingToggle(KEY_PI_SPOOF_VENDING_SDK, Settings.Secure.PI_SPOOF_VENDING_SDK, SettingTable.SECURE, 0)
+        bindSettingToggle(KEY_PI_PHOTOS_SPOOF, Settings.Secure.PI_PHOTOS_SPOOF, SettingTable.SECURE)
+        bindSettingToggle(KEY_PI_SPOOF_MORE_PIXELAPPS, Settings.Secure.PI_SPOOF_MORE_PIXELAPPS, SettingTable.SECURE)
+        updatePifDependents(pifEnabled)
+
+        /*
+         * Bind TrickyStore keybox settings.
+         */
+        findPreference<Preference>(KEY_TRICKY_KEYBOX_IMPORT)?.apply {
+            isPersistent = false
+            setOnPreferenceClickListener {
+                if (getKeyboxFile().exists()) {
+                    showTrickyStoreDialog(getString(R.string.trickystore_keybox_exists))
+                } else {
+                    keyboxPickerLauncher.launch(arrayOf("text/xml", "application/xml", "text/*", "*/*"))
+                }
+                true
+            }
+        }
+        findPreference<Preference>(KEY_TRICKY_KEYBOX_DELETE)?.apply {
+            isPersistent = false
+            setOnPreferenceClickListener {
+                deleteKeybox()
+                true
+            }
+        }
 
         /*
          * Bind force screenshot settings.
@@ -352,6 +411,73 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
                 SettingTable.SECURE -> Settings.Secure.putInt(resolver, settingKey, value)
             }
         }
+    }
+
+    private fun updatePifDependents(enabled: Boolean) {
+        val dependentKeys = listOf(
+            KEY_PI_SPOOF_BUILD,
+            KEY_PI_SPOOF_PROPS,
+            KEY_PI_SPOOF_PROVIDER,
+            KEY_PI_SPOOF_SIGNATURE,
+            KEY_PI_SPOOF_VENDING_BUILD,
+            KEY_PI_SPOOF_VENDING_SDK,
+            KEY_PI_PHOTOS_SPOOF,
+            KEY_PI_SPOOF_MORE_PIXELAPPS
+        )
+        dependentKeys.forEach { key ->
+            findPreference<Preference>(key)?.isEnabled = enabled
+        }
+    }
+
+    private fun importKeyboxFromUri(uri: Uri) {
+        val keyboxFile = getKeyboxFile()
+        try {
+            val parent = keyboxFile.parentFile
+            if (parent != null && !parent.exists() && !parent.mkdirs()) {
+                showTrickyStoreDialog(getString(R.string.trickystore_keybox_import_failed))
+                return
+            }
+            val input = requireContext().contentResolver.openInputStream(uri)
+            if (input == null) {
+                showTrickyStoreDialog(getString(R.string.trickystore_keybox_import_failed))
+                return
+            }
+            input.use { stream ->
+                keyboxFile.outputStream().use { output ->
+                    stream.copyTo(output)
+                }
+            }
+            keyboxFile.setReadable(true, false)
+            keyboxFile.setWritable(true, false)
+            showTrickyStoreDialog(getString(R.string.trickystore_keybox_imported))
+        } catch (e: Exception) {
+            showTrickyStoreDialog(getString(R.string.trickystore_keybox_import_failed))
+        }
+    }
+
+    private fun deleteKeybox() {
+        val keyboxFile = getKeyboxFile()
+        if (!keyboxFile.exists()) {
+            showTrickyStoreDialog(getString(R.string.trickystore_keybox_delete_missing))
+            return
+        }
+        if (keyboxFile.delete()) {
+            showTrickyStoreDialog(getString(R.string.trickystore_keybox_deleted))
+        } else {
+            showTrickyStoreDialog(getString(R.string.trickystore_keybox_delete_failed))
+        }
+    }
+
+    private fun getKeyboxFile(): File {
+        return File(TRICKY_STORE_DIR, KEYBOX_FILE)
+    }
+
+    private fun showTrickyStoreDialog(message: String) {
+        if (!isAdded) return
+        AlertDialog.Builder(requireContext())
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
     }
 
     // TODO: Move this to utils
@@ -559,6 +685,23 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val AVIUM_INIT_CFG = "/metadata/avium/avium_init.cfg"
         private const val KEY_FAKE_BL_UNLOCK = "fake_bl_unlock"
         private const val KEY_VBMETA_UPDATE = "vbmeta_update"
+
+        // System -> Play Integrity Fix
+        private const val KEY_PI_ENABLE_SPOOF = "pi_enable_spoof"
+        private const val KEY_PI_SPOOF_BUILD = "pi_spoof_build"
+        private const val KEY_PI_SPOOF_PROPS = "pi_spoof_props"
+        private const val KEY_PI_SPOOF_PROVIDER = "pi_spoof_provider"
+        private const val KEY_PI_SPOOF_SIGNATURE = "pi_spoof_signature"
+        private const val KEY_PI_SPOOF_VENDING_BUILD = "pi_spoof_vending_build"
+        private const val KEY_PI_SPOOF_VENDING_SDK = "pi_spoof_vending_sdk"
+        private const val KEY_PI_PHOTOS_SPOOF = "pi_photos_spoof"
+        private const val KEY_PI_SPOOF_MORE_PIXELAPPS = "pi_spoof_more_pixelapps"
+
+        // System -> TrickyStore
+        private const val TRICKY_STORE_DIR = "/data/tricky_store"
+        private const val KEYBOX_FILE = "keybox.xml"
+        private const val KEY_TRICKY_KEYBOX_IMPORT = "trickystore_keybox_import"
+        private const val KEY_TRICKY_KEYBOX_DELETE = "trickystore_keybox_delete"
 
         // System -> Misc
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"

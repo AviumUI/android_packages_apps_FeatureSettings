@@ -54,6 +54,34 @@
     <string name="depth_wallpaper_settings_title">Depth wallpaper settings</string>
 
     <!-- System -> Spoofing-->
+    <string name="system_group_play_integrity">Play Integrity Fix</string>
+    <string name="pi_enable_spoof_title">Enable PIF spoofing</string>
+    <string name="pi_enable_spoof_summary">Enable spoofing for Play Integrity checks</string>
+    <string name="pi_spoof_build_title">Spoof build fields</string>
+    <string name="pi_spoof_build_summary">Apply build field spoofing for integrity checks</string>
+    <string name="pi_spoof_props_title">Spoof system properties</string>
+    <string name="pi_spoof_props_summary">Apply system property spoofing for integrity checks</string>
+    <string name="pi_spoof_provider_title">Spoof provider info</string>
+    <string name="pi_spoof_provider_summary">Apply provider spoofing for integrity checks</string>
+    <string name="pi_spoof_signature_title">Spoof platform signature</string>
+    <string name="pi_spoof_signature_summary">Apply platform signature spoofing for integrity checks</string>
+    <string name="pi_spoof_vending_build_title">Spoof Play Store build</string>
+    <string name="pi_spoof_vending_build_summary">Apply build spoofing for Play Store</string>
+    <string name="pi_spoof_vending_sdk_title">Spoof Play Store SDK</string>
+    <string name="pi_spoof_vending_sdk_summary">Apply SDK spoofing for Play Store</string>
+    <string name="pi_photos_spoof_title">Spoof Google Photos</string>
+    <string name="pi_photos_spoof_summary">Spoof as Pixel XL to enable unlimited Google Photos backup</string>
+    <string name="pi_spoof_more_pixelapps_title">Spoof more Pixel apps</string>
+    <string name="pi_spoof_more_pixelapps_summary">Spoof selected Google apps as Pixel 10 Pro XL</string>
+    <string name="system_group_trickystore">TrickyStore</string>
+    <string name="trickystore_keybox_import_title">Import keybox</string>
+    <string name="trickystore_keybox_delete_title">Delete keybox</string>
+    <string name="trickystore_keybox_exists">A keybox already exists. Delete it before importing a new one.</string>
+    <string name="trickystore_keybox_imported">Keybox imported.</string>
+    <string name="trickystore_keybox_import_failed">Failed to import keybox.</string>
+    <string name="trickystore_keybox_deleted">Keybox deleted.</string>
+    <string name="trickystore_keybox_delete_missing">No keybox to delete.</string>
+    <string name="trickystore_keybox_delete_failed">Failed to delete keybox.</string>
     <string name="system_group_spoof">Spoofing</string>
     <string name="fake_bl_unlock_title">Fake bootloader unlock status</string>
     <string name="fake_bl_unlock_summary">Requires reboot</string>

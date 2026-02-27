@@ -18,6 +18,65 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:title="@string/category_system">
 
+    <PreferenceCategory android:title="@string/system_group_play_integrity">
+        <SwitchPreferenceCompat
+            android:key="pi_enable_spoof"
+            android:title="@string/pi_enable_spoof_title"
+            android:summary="@string/pi_enable_spoof_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_build"
+            android:title="@string/pi_spoof_build_title"
+            android:summary="@string/pi_spoof_build_summary"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_props"
+            android:title="@string/pi_spoof_props_title"
+            android:summary="@string/pi_spoof_props_summary"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_provider"
+            android:title="@string/pi_spoof_provider_title"
+            android:summary="@string/pi_spoof_provider_summary"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_signature"
+            android:title="@string/pi_spoof_signature_title"
+            android:summary="@string/pi_spoof_signature_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_vending_build"
+            android:title="@string/pi_spoof_vending_build_title"
+            android:summary="@string/pi_spoof_vending_build_summary"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_vending_sdk"
+            android:title="@string/pi_spoof_vending_sdk_title"
+            android:summary="@string/pi_spoof_vending_sdk_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_photos_spoof"
+            android:title="@string/pi_photos_spoof_title"
+            android:summary="@string/pi_photos_spoof_summary"
+            android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="pi_spoof_more_pixelapps"
+            android:title="@string/pi_spoof_more_pixelapps_title"
+            android:summary="@string/pi_spoof_more_pixelapps_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/system_group_trickystore">
+        <Preference
+            android:key="trickystore_keybox_import"
+            android:title="@string/trickystore_keybox_import_title"
+            android:widgetLayout="@layout/preference_widget_chevron" />
+        <Preference
+            android:key="trickystore_keybox_delete"
+            android:title="@string/trickystore_keybox_delete_title"
+            android:widgetLayout="@layout/preference_widget_chevron" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/system_group_spoof">
         <SwitchPreferenceCompat
             android:key="fake_bl_unlock"
