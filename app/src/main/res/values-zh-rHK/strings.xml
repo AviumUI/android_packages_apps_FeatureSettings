@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025-2026 The AviumUI Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">Avium 絕招</string>
+    <string name="top_bar_title">Avium 絕招</string>
+    <string name="lockscreen_dim_title">關閉鎖屏介面壓暗</string>
+    <string name="lockscreen_dim_summary">開啟後，鎖屏桌布將不會被強制壓暗</string>
+    <string name="launcher_blur_title">桌面過渡模糊</string>
+    <string name="launcher_blur_summary">為應用啟動和退出等桌面過渡啟用全層級背景模糊效果</string>
+    <string name="desktop_more_settings">更多桌面設定</string>
+    <string name="main_hint">實驗室功能，功能可能不穩定</string>
+    <string name="main_ps">啟用後可能會對系統穩定性和效能產生影響</string>
+    <string name="lab_summary">實驗室功能，請酌情使用</string>
+    <string name="feature_categories_title">功能分類</string>
+    <string name="disable_sensor_title">應用開啟時停用感應器 6 秒</string>
+    <string name="disable_sensor_switch_summary">應用啟動時暫時停用感應器</string>
+    <string name="disable_sensor_apps_title">選擇應用</string>
+    <string name="disable_sensor_summary_none">點按以選擇應用</string>
+    <string name="disable_sensor_summary_selected">已選擇 %d 個應用</string>
+    <string name="app_selection_dialog_title">選擇應用</string>
+    <string name="status_bar_lyric_title">狀態列歌詞</string>
+    <string name="status_bar_lyric_summary">當播放音樂時，在狀態列顯示歌詞</string>
+    <string name="statusbar_settings_title">狀態列設定</string>
+    <string name="quick_settings_title">自訂快速設定</string>
+    <string name="statusbar_colored_icons_title">在狀態列上顯示應用原始圖示</string>
+    <string name="statusbar_colored_icons_summary">通知列圖示顯示為應用原始圖示</string>
+    <string name="show_squiggle_animation_title">顯示波紋動畫</string>
+    <string name="show_squiggle_animation_summary">在媒體面板顯示波紋動畫\n更改後需切換、暫停音樂或拖動進度列才能生效</string>
+    <string name="status_bar_notif_count_title">顯示通知數量</string>
+    <string name="status_bar_notif_count_summary">在狀態列空間不足時，顯示未顯示的通知數量</string>
+    <string name="music_lockscreen_title">音樂鎖屏</string>
+    <string name="music_lockscreen_summary">鎖屏時將顯示黑膠唱片，上滑退出</string>
+    <string name="music_lockscreen_unlock_title">音樂鎖屏常顯</string>
+    <string name="music_lockscreen_unlock_summary">開啟後，音樂鎖屏需要手動熄屏</string>
+    <string name="custom_lockscreen_title">萬象時鐘</string>
+    <string name="custom_lockscreen_summary">點按跳轉到自訂鎖屏設定</string>
+    <string name="custom_lockscreen_switch_summary">啟用自訂鎖屏功能</string>
+    <string name="custom_lockscreen_settings_title">自訂鎖屏設定</string>
+    <string name="fake_bl_unlock_title">偽裝 Bootloader 解鎖狀態</string>
+    <string name="fake_bl_unlock_summary">重新啟動後生效</string>
+    <string name="fake_bl_unlock_locked_title">無法更改設定</string>
+    <string name="fake_bl_unlock_locked_message">維護者已啟用 AVIUM_FORCE_SET_FAKE_PROP，此設定無法變更。</string>
+    <string name="fake_bl_unlock_reboot_message">你必須重新啟動裝置，才能更改此設定項。</string>
+    <string name="reboot_dialog_reboot_later">稍後重新啟動</string>
+    <string name="reboot_dialog_reboot_now">立即重新啟動</string>
+    <string name="depth_wallpaper_title">景深桌布</string>
+    <string name="depth_wallpaper_summary">為鎖屏啟用景深效果，點按以進入景深設定</string>
+    <string name="depth_wallpaper_switch_summary">為鎖屏啟用景深效果</string>
+    <string name="depth_wallpaper_settings_title">景深桌布設定</string>
+    <string name="vbmeta_update_summary">在 Bootloader 沒有提供 vbmeta digest 時產生一個</string>
+    <string name="system_group_misc">雜項</string>
+    <string name="force_screenshot_title">強制截圖</string>
+    <string name="force_screenshot_summary">屏蔽 FLAG_SECURE 導致的拒絕截圖</string>
+    <string name="category_status_bar">使用者介面</string>
+    <string name="category_desktop">桌面</string>
+    <string name="category_privacy_security">感應器</string>
+    <string name="category_lockscreen">鎖屏</string>
+    <string name="category_system">系統</string>
+    <string name="category_status_bar_summary">調整狀態列和快速設定</string>
+    <string name="category_desktop_summary">桌面切換與啟動特效</string>
+    <string name="category_privacy_security_summary">感應器與私隱控制</string>
+    <string name="category_lockscreen_summary">鎖屏顯示與互動</string>
+    <string name="category_system_summary">系統工具與截圖功能</string>
+    <string name="system_group_spoof">偽裝</string>
+    <string name="vbmeta_update_title">產生 vbmeta digest</string>
+</resources>
