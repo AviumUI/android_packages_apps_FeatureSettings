@@ -223,6 +223,13 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
             SystemPropertiesHelper.set(VBMETA_UPDATE_PROP_KEY, enabled.toString())
         }
 
+        bindSettingToggle(
+            KEY_MISTOUCH_PREVENTION,
+            MISTOUCH_PREVENTION_KEY,
+            SettingTable.SECURE,
+            1
+        )
+
     }
 
     // TODO: Move this to utils
@@ -563,6 +570,10 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         // System -> Misc
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
         private const val KEY_FORCE_SCREENSHOT = "force_screenshot"
+
+        // System -> Mistouch Prevention
+        private const val MISTOUCH_PREVENTION_KEY = "nt_mistouch_prevention_enable"
+        private const val KEY_MISTOUCH_PREVENTION = "nt_mistouch_prevention_enable"
 
         fun newInstance(categoryId: String): CategorySettingsFragment {
             return CategorySettingsFragment().apply {

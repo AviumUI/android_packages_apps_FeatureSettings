@@ -61,4 +61,7 @@
     <string name="category_system_summary">系统工具与截图能力</string>
     <string name="system_group_spoof">伪装</string>
     <string name="vbmeta_update_title">生成 vbmeta digest</string>
+    <string name="system_group_mistouch">误触防护</string>
+    <string name="mistouch_prevention_title">误触防护</string>
+    <string name="mistouch_prevention_summary">当屏幕被遮挡时防止误触操作</string>
 </resources>

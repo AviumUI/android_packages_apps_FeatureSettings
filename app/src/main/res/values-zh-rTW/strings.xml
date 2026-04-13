@@ -61,4 +61,7 @@
     <string name="system_group_misc">雜項</string>
     <string name="force_screenshot_title">強制螢幕截圖</string>
     <string name="force_screenshot_summary">略過由 FLAG_SECURE 導致的拒絕截圖</string>
+    <string name="system_group_mistouch">誤觸防護</string>
+    <string name="mistouch_prevention_title">誤觸防護</string>
+    <string name="mistouch_prevention_summary">當螢幕被遮擋時防止誤觸操作</string>
 </resources>
