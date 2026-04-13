@@ -39,4 +39,12 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/system_group_mistouch">
+        <SwitchPreferenceCompat
+            android:key="nt_mistouch_prevention_enable"
+            android:title="@string/mistouch_prevention_title"
+            android:summary="@string/mistouch_prevention_summary"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -69,4 +69,9 @@
     <string name="system_group_misc">Misc</string>
     <string name="force_screenshot_title">Force Screenshot</string>
     <string name="force_screenshot_summary">Bypass FLAG_SECURE to allow screenshot capture</string>
+
+    <!-- System -> Mistouch Prevention -->
+    <string name="system_group_mistouch">Mistouch Prevention</string>
+    <string name="mistouch_prevention_title">Mistouch Prevention</string>
+    <string name="mistouch_prevention_summary">Prevent accidental touch when screen is covered</string>
 </resources>
