@@ -26,6 +26,10 @@
     <string name="disable_sensor_summary_none">輕觸即可選擇應用程式</string>
     <string name="disable_sensor_summary_selected">已選擇 %d 個應用程式</string>
     <string name="app_selection_dialog_title">選擇應用程式</string>
+    <string name="sensor_mode_1_title">僅攔截前7秒</string>
+    <string name="sensor_mode_1_summary">僅在應用程式切換到前景後的前7秒內攔截感測器</string>
+    <string name="sensor_mode_2_title">始終攔截</string>
+    <string name="sensor_mode_2_summary">應用程式在前景時始終攔截感測器</string>
     <string name="status_bar_lyric_title">狀態列歌詞</string>
     <string name="status_bar_lyric_summary">播放音樂時，在狀態列顯示歌詞</string>
     <string name="statusbar_settings_title">狀態列設定</string>

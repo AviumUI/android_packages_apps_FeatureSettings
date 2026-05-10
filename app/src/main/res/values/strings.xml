@@ -28,6 +28,10 @@
     <string name="disable_sensor_summary_none">Click to select apps</string>
     <string name="disable_sensor_summary_selected">%d apps selected</string>
     <string name="app_selection_dialog_title">Select Apps</string>
+    <string name="sensor_mode_1_title">Block First 7 Seconds</string>
+    <string name="sensor_mode_1_summary">Only block sensors for the first 7 seconds after app comes to foreground</string>
+    <string name="sensor_mode_2_title">Block Always</string>
+    <string name="sensor_mode_2_summary">Always block sensors when app is in foreground</string>
     <string name="status_bar_lyric_title">Status Bar Lyrics</string>
     <string name="status_bar_lyric_summary">When playing music, display lyrics in status bar</string>
     <string name="statusbar_settings_title">Statusbar settings</string>

@@ -22,6 +22,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
@@ -375,24 +378,65 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         if (!isAdded) return
         if (installedApps.isEmpty()) return
 
-        val selectedApps = loadDisableSensorApps().toMutableSet()
+        val configMap = loadDisableSensorAppConfigs().toMutableMap()
         val appNames = installedApps.map { it.appName }.toTypedArray()
         val appPackages = installedApps.map { it.packageName }.toTypedArray()
-        val checkedItems = appPackages.map { selectedApps.contains(it) }.toBooleanArray()
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_sensor_app_selection, null)
+        val radioGroup = dialogView.findViewById<RadioGroup>(R.id.mode_radio_group)
+        val radioMode1 = dialogView.findViewById<RadioButton>(R.id.radio_mode_1)
+        val radioMode2 = dialogView.findViewById<RadioButton>(R.id.radio_mode_2)
+        val modeDescription = dialogView.findViewById<TextView>(R.id.mode_description)
+        val appList = dialogView.findViewById<android.widget.ListView>(R.id.app_list)
+
+        var currentMode = "1"
+
+        appList.adapter = android.widget.ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_multiple_choice,
+            appNames
+        )
+        appList.choiceMode = android.widget.ListView.CHOICE_MODE_MULTIPLE
+
+        fun updateCheckedItems() {
+            for (i in appPackages.indices) {
+                val isChecked = configMap[appPackages[i]] == currentMode
+                appList.setItemChecked(i, isChecked)
+            }
+        }
+
+        fun updateModeDescription() {
+            modeDescription.text = if (currentMode == "1") {
+                getString(R.string.sensor_mode_1_summary)
+            } else {
+                getString(R.string.sensor_mode_2_summary)
+            }
+        }
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            currentMode = if (checkedId == R.id.radio_mode_1) "1" else "2"
+            updateModeDescription()
+            updateCheckedItems()
+        }
+
+        appList.setOnItemClickListener { _, _, position, _ ->
+            val packageName = appPackages[position]
+            if (appList.isItemChecked(position)) {
+                configMap[packageName] = currentMode
+            } else {
+                configMap.remove(packageName)
+            }
+        }
+
+        updateModeDescription()
+        updateCheckedItems()
 
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.app_selection_dialog_title)
-            .setMultiChoiceItems(appNames, checkedItems) { _, which, isChecked ->
-                val packageName = appPackages[which]
-                if (isChecked) {
-                    selectedApps.add(packageName)
-                } else {
-                    selectedApps.remove(packageName)
-                }
-            }
+            .setView(dialogView)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                saveDisableSensorApps(selectedApps)
-                updateDisableSensorSummary(pref, selectedApps)
+                saveDisableSensorAppConfigs(configMap)
+                updateDisableSensorSummary(pref, configMap.keys)
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -429,18 +473,31 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
     // TODO: Move this to utils
     private fun loadDisableSensorApps(): Set<String> {
-        val appsString = SystemPropertiesHelper.get(DISABLE_SENSOR_APPS_KEY, "")
+        return loadDisableSensorAppConfigs().keys
+    }
+
+    private fun loadDisableSensorAppConfigs(): Map<String, String> {
+        val appsString = Settings.System.getString(requireContext().contentResolver, SHAKE_SENSORS_BLACKLIST_KEY) ?: ""
         return if (appsString.isNotBlank()) {
-            appsString.split(',').map { it.trim() }.filter { it.isNotEmpty() }.toSet()
+            appsString.split(';').map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .associate {
+                    val parts = it.split(':')
+                    parts[0] to (parts.getOrNull(1) ?: "1")
+                }
         } else {
-            emptySet()
+            emptyMap()
         }
     }
 
     // TODO: Move this to utils
-    private fun saveDisableSensorApps(selectedApps: Set<String>) {
-        val appsString = selectedApps.joinToString(",")
-        SystemPropertiesHelper.set(DISABLE_SENSOR_APPS_KEY, appsString)
+    private fun saveDisableSensorAppConfigs(configMap: Map<String, String>) {
+        val appsString = if (configMap.isNotEmpty()) {
+            configMap.entries.joinToString(";") { "${it.key}:${it.value}" }
+        } else {
+            ""
+        }
+        Settings.System.putString(requireContext().contentResolver, SHAKE_SENSORS_BLACKLIST_KEY, appsString)
     }
 
     // TODO: Move this to utils
@@ -542,7 +599,7 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
 
         // Privacy & Security
         private const val DISABLE_SENSOR_KEY = "persist.avium.disablesensor"
-        private const val DISABLE_SENSOR_APPS_KEY = "persist.avium.disablesensor.apps"
+        private const val SHAKE_SENSORS_BLACKLIST_KEY = "shake_sensors_blacklist_config"
         private const val KEY_DISABLE_SENSOR = "disable_sensor"
         private const val KEY_DISABLE_SENSOR_APPS = "disable_sensor_apps"
 

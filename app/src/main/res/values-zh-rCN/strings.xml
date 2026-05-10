@@ -16,6 +16,10 @@
     <string name="disable_sensor_summary_none">点击选择应用</string>
     <string name="disable_sensor_summary_selected">已选择 %d 个应用</string>
     <string name="app_selection_dialog_title">选择应用</string>
+    <string name="sensor_mode_1_title">仅拦截前7秒</string>
+    <string name="sensor_mode_1_summary">仅在应用切换到前台后的前7秒内拦截传感器</string>
+    <string name="sensor_mode_2_title">始终拦截</string>
+    <string name="sensor_mode_2_summary">应用在前台时始终拦截传感器</string>
     <string name="status_bar_lyric_title">状态栏歌词</string>
     <string name="status_bar_lyric_summary">当播放音乐时，在状态栏显示歌词</string>
     <string name="statusbar_settings_title">状态栏设置</string>
