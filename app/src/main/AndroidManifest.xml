@@ -45,6 +45,13 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="false"
             android:theme="@style/Theme.FeatureSettings.Settings" />
+
+        <activity
+            android:name=".ui.support.SupportActivity"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="false"
+            android:label="@string/support_title"
+            android:theme="@style/Theme.FeatureSettings" />
     </application>
 
 </manifest>

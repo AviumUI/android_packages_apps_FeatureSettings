@@ -10,7 +10,7 @@
     <string name="main_ps">启用后可能会对系统稳定性和性能产生影响</string>
     <string name="lab_summary">实验室功能，酌情使用</string>
     <string name="feature_categories_title">功能分类</string>
-    <string name="disable_sensor_title">应用开启时禁用传感器 6 秒</string>
+    <string name="disable_sensor_title">应用开启时禁用传感器 7 秒</string>
     <string name="disable_sensor_switch_summary">应用启动时临时禁用传感器</string>
     <string name="disable_sensor_apps_title">选择应用</string>
     <string name="disable_sensor_summary_none">点击选择应用</string>
@@ -20,6 +20,18 @@
     <string name="sensor_mode_1_summary">仅在应用切换到前台后的前7秒内拦截传感器</string>
     <string name="sensor_mode_2_title">始终拦截</string>
     <string name="sensor_mode_2_summary">应用在前台时始终拦截传感器</string>
+
+    <!-- 支持页面 -->
+    <string name="support_title">支持</string>
+    <string name="back">返回</string>
+    <string name="about_title">关于 AviumUI</string>
+    <string name="about_content">AviumUI 是一个基于LineageOS的定制项目，我们围绕用户所需，美观界面，原汁原味，强化功能，极简主义等等的发展理念，以无缝贴入已习以为常的使用习惯为开发目的，致力于丰富体验与无感操作。</string>
+    <string name="support_donate_title">AviumUI 需要你的帮助</string>
+    <string name="support_donate_message">你的捐赠将帮助我们持续开发，为 AviumUI 带来更多功能。感谢你的支持！</string>
+    <string name="donate_aifadian">爱发电</string>
+    <string name="support_tile_summary">了解 AviumUI 并支持我们</string>
+    <string name="community_title">加入我们的社区</string>
+    <string name="community_message">与其他 AviumUI 用户交流并获取帮助</string>
     <string name="status_bar_lyric_title">状态栏歌词</string>
     <string name="status_bar_lyric_summary">当播放音乐时，在状态栏显示歌词</string>
     <string name="statusbar_settings_title">状态栏设置</string>

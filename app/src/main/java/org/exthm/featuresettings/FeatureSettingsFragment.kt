@@ -50,5 +50,8 @@ class FeatureSettingsFragment : SettingsBasePreferenceFragment() {
         gridPref.findViewById<View>(R.id.tile_privacy_security)?.setOnClickListener {
             startActivity(CategoryActivity.newIntent(requireContext(), SettingsCategory.PRIVACY_SECURITY))
         }
+        gridPref.findViewById<View>(R.id.tile_support)?.setOnClickListener {
+            startActivity(org.exthm.featuresettings.ui.support.SupportActivity.newIntent(requireContext()))
+        }
     }
 }
