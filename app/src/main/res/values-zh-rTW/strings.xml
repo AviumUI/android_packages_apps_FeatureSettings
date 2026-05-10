@@ -30,6 +30,18 @@
     <string name="sensor_mode_1_summary">僅在應用程式切換到前景後的前7秒內攔截感測器</string>
     <string name="sensor_mode_2_title">始終攔截</string>
     <string name="sensor_mode_2_summary">應用程式在前景時始終攔截感測器</string>
+
+    <!-- 支持頁面 -->
+    <string name="support_title">支持</string>
+    <string name="back">返回</string>
+    <string name="about_title">關於 AviumUI</string>
+    <string name="about_content">AviumUI 是一個基於 LineageOS 的客製化專案，我們圍繞使用者所需、美觀介面、原汁原味、強化功能、極簡主義等等的發展理念，以無縫貼入已習以為常的使用習慣為開發目的，致力於豐富體驗與無感操作。</string>
+    <string name="support_donate_title">AviumUI 需要你的幫助</string>
+    <string name="support_donate_message">你的捐贈將幫助我們持續開發，為 AviumUI 帶來更多功能。感謝你的支持！</string>
+    <string name="donate_aifadian">愛發電</string>
+    <string name="support_tile_summary">了解 AviumUI 並支持我們</string>
+    <string name="community_title">加入我們的社群</string>
+    <string name="community_message">與其他 AviumUI 使用者交流並取得幫助</string>
     <string name="status_bar_lyric_title">狀態列歌詞</string>
     <string name="status_bar_lyric_summary">播放音樂時，在狀態列顯示歌詞</string>
     <string name="statusbar_settings_title">狀態列設定</string>
