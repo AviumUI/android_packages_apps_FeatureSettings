@@ -233,6 +233,16 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
             1
         )
 
+        /*
+         * Bind GMS enabled settings.
+         */
+        bindSettingToggle(
+            KEY_GMS_ENABLED,
+            GMS_ENABLED_KEY,
+            SettingTable.SECURE,
+            0
+        )
+
     }
 
     // TODO: Move this to utils
@@ -631,6 +641,10 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         // System -> Mistouch Prevention
         private const val MISTOUCH_PREVENTION_KEY = "nt_mistouch_prevention_enable"
         private const val KEY_MISTOUCH_PREVENTION = "nt_mistouch_prevention_enable"
+
+        // GMS
+        private const val GMS_ENABLED_KEY = "gms_enabled"
+        private const val KEY_GMS_ENABLED = "gms_enabled"
 
         fun newInstance(categoryId: String): CategorySettingsFragment {
             return CategorySettingsFragment().apply {

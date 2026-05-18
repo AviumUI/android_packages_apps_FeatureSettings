@@ -77,4 +77,12 @@
     <string name="category_system_summary">系統工具與截圖功能</string>
     <string name="system_group_spoof">偽裝</string>
     <string name="vbmeta_update_title">產生 vbmeta digest</string>
+
+    <string name="system_group_mistouch">誤觸防護</string>
+    <string name="mistouch_prevention_title">誤觸防護</string>
+    <string name="mistouch_prevention_summary">當螢幕被遮擋時防止誤觸操作</string>
+
+    <string name="system_group_gms">Google 服務</string>
+    <string name="gms_enabled_title">啟用 GMS 服務</string>
+    <string name="gms_enabled_summary">啟用 Google Mobile Services</string>
 </resources>

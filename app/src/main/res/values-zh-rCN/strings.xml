@@ -80,4 +80,8 @@
     <string name="system_group_mistouch">误触防护</string>
     <string name="mistouch_prevention_title">误触防护</string>
     <string name="mistouch_prevention_summary">当屏幕被遮挡时防止误触操作</string>
+
+    <string name="system_group_gms">谷歌服务</string>
+    <string name="gms_enabled_title">启用GMS服务</string>
+    <string name="gms_enabled_summary">启用谷歌移动服务</string>
 </resources>

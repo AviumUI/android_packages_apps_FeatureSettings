@@ -90,4 +90,9 @@
     <string name="system_group_mistouch">Mistouch Prevention</string>
     <string name="mistouch_prevention_title">Mistouch Prevention</string>
     <string name="mistouch_prevention_summary">Prevent accidental touch when screen is covered</string>
+
+    <!-- GMS -->
+    <string name="system_group_gms">Google Services</string>
+    <string name="gms_enabled_title">Enable GMS Services</string>
+    <string name="gms_enabled_summary">Enable Google Mobile Services</string>
 </resources>

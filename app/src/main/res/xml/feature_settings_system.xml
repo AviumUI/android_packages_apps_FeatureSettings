@@ -47,4 +47,12 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/system_group_gms">
+        <SwitchPreferenceCompat
+            android:key="gms_enabled"
+            android:title="@string/gms_enabled_title"
+            android:summary="@string/gms_enabled_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
