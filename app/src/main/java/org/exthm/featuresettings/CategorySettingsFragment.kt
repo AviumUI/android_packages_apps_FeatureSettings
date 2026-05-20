@@ -243,6 +243,13 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
             0
         )
 
+        val teePref = findPreference<Preference>(KEY_TEE_SOFT_DEBUG)
+        teePref?.isPersistent = false
+        teePref?.setOnPreferenceClickListener {
+            startActivity(org.exthm.featuresettings.tee.TeeSoftDebugActivity.newIntent(requireContext()))
+            true
+        }
+
     }
 
     // TODO: Move this to utils
@@ -645,6 +652,8 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         // GMS
         private const val GMS_ENABLED_KEY = "gms_enabled"
         private const val KEY_GMS_ENABLED = "gms_enabled"
+
+        private const val KEY_TEE_SOFT_DEBUG = "tee_soft_debug"
 
         fun newInstance(categoryId: String): CategorySettingsFragment {
             return CategorySettingsFragment().apply {

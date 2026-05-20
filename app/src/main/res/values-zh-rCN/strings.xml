@@ -84,4 +84,27 @@
     <string name="system_group_gms">谷歌服务</string>
     <string name="gms_enabled_title">启用GMS服务</string>
     <string name="gms_enabled_summary">启用谷歌移动服务</string>
+    
+    <string name="system_group_tee_soft_debug">TEE 软模拟</string>
+    <string name="tee_soft_debug_title">TEE 软模拟</string>
+    <string name="tee_soft_debug_summary">对指定App开启KeyAttestation模拟</string>
+    <string name="tee_soft_debug_enable_title">启用 TEE 软模拟</string>
+    <string name="tee_soft_debug_mode_title">运行模式</string>
+    <string name="tee_soft_debug_mode_patch">补丁</string>
+    <string name="tee_soft_debug_mode_auto">自动</string>
+    <string name="tee_soft_debug_mode_generate">生成</string>
+    <string name="tee_soft_debug_keybox_path_title">自定义 keybox XML 路径</string>
+    <string name="tee_soft_debug_keybox_path_summary">尚未导入 keybox，点击选择 keybox.xml</string>
+    <string name="tee_soft_debug_keybox_pick_success">Keybox 已复制: %1$s</string>
+    <string name="tee_soft_debug_keybox_pick_failed">无法导入所选的 keybox XML</string>
+    <string name="tee_soft_debug_applications_title">目标应用</string>
+    <string name="tee_soft_debug_show_system_apps_title">显示系统应用</string>
+    <string name="tee_soft_debug_show_system_apps_summary">在应用选择器中包含预装系统软件</string>
+    <string name="tee_soft_debug_applications_empty">未选择目标应用，点击添加</string>
+    <string name="tee_soft_debug_remove_app_message">将 %1$s 从 TEE 软模拟目标中移除？</string>
+    <string name="tee_soft_debug_add_app">添加应用</string>
+    <string name="tee_soft_debug_choose_app">选择应用</string>
+    <plurals name="tee_soft_debug_enabled_with_apps">
+        <item quantity="other">已对 %d 个应用启用</item>
+    </plurals>
 </resources>

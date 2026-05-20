@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025-2026 The AviumUI Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="tee_soft_debug_root"
+    android:title="@string/tee_soft_debug_title">
+
+    <SwitchPreferenceCompat
+        android:key="tee_soft_debug_enabled"
+        android:title="@string/tee_soft_debug_enable_title"
+        android:summary="@string/tee_soft_debug_summary"
+        android:defaultValue="false" />
+
+    <ListPreference
+        android:key="tee_soft_debug_mode"
+        android:title="@string/tee_soft_debug_mode_title"
+        android:entries="@array/tee_soft_debug_mode_entries"
+        android:entryValues="@array/tee_soft_debug_mode_values"
+        android:defaultValue="patch"
+        android:dependency="tee_soft_debug_enabled" />
+
+    <Preference
+        android:key="tee_soft_debug_keybox_path"
+        android:title="@string/tee_soft_debug_keybox_path_title"
+        android:summary="@string/tee_soft_debug_keybox_path_summary"
+        android:dependency="tee_soft_debug_enabled" />
+
+    <PreferenceCategory
+        android:key="tee_soft_debug_applications"
+        android:title="@string/tee_soft_debug_applications_title"
+        android:dependency="tee_soft_debug_enabled">
+
+        <SwitchPreferenceCompat
+            android:key="tee_soft_debug_show_system_apps"
+            android:title="@string/tee_soft_debug_show_system_apps_title"
+            android:summary="@string/tee_soft_debug_show_system_apps_summary"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="tee_soft_debug_add_app"
+            android:title="@string/tee_soft_debug_add_app" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

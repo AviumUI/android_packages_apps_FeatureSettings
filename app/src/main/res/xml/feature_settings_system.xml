@@ -55,4 +55,11 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/system_group_tee_soft_debug">
+        <Preference
+            android:key="tee_soft_debug"
+            android:title="@string/tee_soft_debug_title"
+            android:summary="@string/tee_soft_debug_summary" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

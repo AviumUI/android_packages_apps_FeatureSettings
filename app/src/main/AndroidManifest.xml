@@ -52,6 +52,13 @@
             android:exported="false"
             android:label="@string/support_title"
             android:theme="@style/Theme.FeatureSettings" />
+
+        <activity
+            android:name=".tee.TeeSoftDebugActivity"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="false"
+            android:label="@string/tee_soft_debug_title"
+            android:theme="@style/Theme.FeatureSettings.Settings" />
     </application>
 
 </manifest>

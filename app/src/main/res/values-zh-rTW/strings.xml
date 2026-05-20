@@ -84,4 +84,27 @@
     <string name="system_group_gms">Google 服務</string>
     <string name="gms_enabled_title">啟用 GMS 服務</string>
     <string name="gms_enabled_summary">啟用 Google Mobile Services</string>
+
+    <string name="system_group_tee_soft_debug">TEE 軟模擬</string>
+    <string name="tee_soft_debug_title">TEE 軟模擬</string>
+    <string name="tee_soft_debug_summary">依應用程式控制證明模擬與 keybox 覆寫</string>
+    <string name="tee_soft_debug_enable_title">啟用 TEE 軟模擬</string>
+    <string name="tee_soft_debug_mode_title">運行模式</string>
+    <string name="tee_soft_debug_mode_patch">修補</string>
+    <string name="tee_soft_debug_mode_auto">自動</string>
+    <string name="tee_soft_debug_mode_generate">生成</string>
+    <string name="tee_soft_debug_keybox_path_title">自訂 keybox XML 路徑</string>
+    <string name="tee_soft_debug_keybox_path_summary">尚未匯入 keybox，點擊選擇 keybox.xml</string>
+    <string name="tee_soft_debug_keybox_pick_success">Keybox 已複製: %1$s</string>
+    <string name="tee_soft_debug_keybox_pick_failed">無法匯入所選的 keybox XML</string>
+    <string name="tee_soft_debug_applications_title">目標應用程式</string>
+    <string name="tee_soft_debug_show_system_apps_title">顯示系統應用程式</string>
+    <string name="tee_soft_debug_show_system_apps_summary">在應用程式選擇器中包含預載系統軟體</string>
+    <string name="tee_soft_debug_applications_empty">未選擇目標應用程式，點擊新增</string>
+    <string name="tee_soft_debug_remove_app_message">要將 %1$s 從 TEE 軟模擬目標中移除嗎？</string>
+    <string name="tee_soft_debug_add_app">新增應用程式</string>
+    <string name="tee_soft_debug_choose_app">選擇應用程式</string>
+    <plurals name="tee_soft_debug_enabled_with_apps">
+        <item quantity="other">已對 %d 個應用程式啟用</item>
+    </plurals>
 </resources>
