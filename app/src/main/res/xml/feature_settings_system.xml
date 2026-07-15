@@ -31,6 +31,14 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/system_group_network">
+        <SwitchPreferenceCompat
+            android:key="force_6ghz_hotspot"
+            android:title="@string/force_6ghz_hotspot_title"
+            android:summary="@string/force_6ghz_hotspot_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/system_group_misc">
         <SwitchPreferenceCompat
             android:key="force_screenshot"
