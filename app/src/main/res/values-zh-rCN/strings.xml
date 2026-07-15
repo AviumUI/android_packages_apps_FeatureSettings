@@ -62,6 +62,9 @@
     <string name="depth_wallpaper_switch_summary">为锁屏启用景深效果</string>
     <string name="depth_wallpaper_settings_title">景深壁纸设置</string>
     <string name="vbmeta_update_summary">在 Bootloader 没有提供 vbmeta digest 时生成一个</string>
+    <string name="system_group_network">网络</string>
+    <string name="force_6ghz_hotspot_title">强制开启 6 GHz 热点</string>
+    <string name="force_6ghz_hotspot_summary">请遵循所在国家法律法规，重启热点后生效</string>
     <string name="system_group_misc">杂项</string>
     <string name="force_screenshot_title">强制截图</string>
     <string name="force_screenshot_summary">屏蔽 FLAG_SECURE 导致的拒绝截图</string>
