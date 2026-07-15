@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354be3d8_b61e890c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-07-15T13:22:14Z",
+      "side": 1,
+      "message": "\u003cuses-permission android:name\u003d\"android.permission.MANAGE_WIFI_COUNTRY_CODE\" /\u003e",
+      "revId": "c2a3e874e7cfdfb3c0bbde62dafd7801656f9f71",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
