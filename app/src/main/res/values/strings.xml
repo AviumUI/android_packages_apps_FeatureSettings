@@ -81,6 +81,11 @@
     <string name="vbmeta_update_title">Generate vbmeta digest</string>
     <string name="vbmeta_update_summary">Provide a vbmeta digest if bootloader don\'t provide it</string>
 
+    <!-- System -> Network -->
+    <string name="system_group_network">Network</string>
+    <string name="force_6ghz_hotspot_title">Force 6 GHz hotspot</string>
+    <string name="force_6ghz_hotspot_summary">Please follow the laws and regulations of your country or region. Restart the hotspot to apply</string>
+
     <!-- System -> Misc -->
     <string name="system_group_misc">Misc</string>
     <string name="force_screenshot_title">Force Screenshot</string>

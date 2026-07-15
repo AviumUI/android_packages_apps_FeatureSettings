@@ -18,6 +18,7 @@ package org.exthm.featuresettings
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -183,6 +184,19 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
      * handle dependence or display logic.
      */
     private fun bindSystemPreferences() {
+
+        bindSwitch(
+            KEY_FORCE_6GHZ_HOTSPOT,
+            SystemPropertiesHelper.getBoolean(FORCE_6GHZ_HOTSPOT_PROPERTY, false)
+        ) { enabled ->
+            SystemPropertiesHelper.set(FORCE_6GHZ_HOTSPOT_PROPERTY, enabled.toString())
+            val wifiManager = requireContext().getSystemService(WifiManager::class.java)
+            if (enabled) {
+                wifiManager.setOverrideCountryCode(FORCED_WIFI_COUNTRY_CODE)
+            } else {
+                wifiManager.clearOverrideCountryCode()
+            }
+        }
 
         /*
          * Bind force screenshot settings.
@@ -642,6 +656,9 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         private const val KEY_VBMETA_UPDATE = "vbmeta_update"
 
         // System -> Misc
+        private const val FORCE_6GHZ_HOTSPOT_PROPERTY = "persist.avium.wifi.force_6ghz_hotspot"
+        private const val FORCED_WIFI_COUNTRY_CODE = "US"
+        private const val KEY_FORCE_6GHZ_HOTSPOT = "force_6ghz_hotspot"
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
         private const val KEY_FORCE_SCREENSHOT = "force_screenshot"
 
