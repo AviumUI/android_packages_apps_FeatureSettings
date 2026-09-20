@@ -110,4 +110,8 @@
     <plurals name="tee_soft_debug_enabled_with_apps">
         <item quantity="other">已对 %d 个应用启用</item>
     </plurals>
+    <string name="profile_ime_category">使用主空间输入法</string>
+    <string name="profile_ime_summary">在此空间使用主空间选中的输入法，输入法可以处理此处输入的内容。下次点击输入框时生效；关闭后恢复该空间自己的输入法。</string>
+    <string name="profile_ime_clone">应用分身</string>
+    <string name="profile_ime_private">隐私空间</string>
 </resources>
