@@ -51,6 +51,32 @@ class CategorySettingsFragment : SettingsBasePreferenceFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val category = findPreference<androidx.preference.PreferenceCategory>("profile_input_methods")
+            ?: return
+        category.removeAll()
+        val context = requireContext()
+        val users = context.getSystemService(android.os.UserManager::class.java)
+        users.getProfiles(android.os.UserHandle.myUserId()).filter {
+            it.isCloneProfile || it.isPrivateProfile
+        }.forEach { profile ->
+            category.addPreference(SwitchPreferenceCompat(context).apply {
+                key = "parent_ime_${profile.serialNumber}"
+                isPersistent = false
+                setTitle(if (profile.isCloneProfile) R.string.profile_ime_clone else R.string.profile_ime_private)
+                setSummary(R.string.profile_ime_summary)
+                isChecked = android.provider.Settings.Secure.getIntForUser(
+                    context.contentResolver, "avium_use_parent_ime", 0, profile.id) == 1
+                setOnPreferenceChangeListener { _, value ->
+                    android.provider.Settings.Secure.putIntForUser(context.contentResolver,
+                        "avium_use_parent_ime", if (value as Boolean) 1 else 0, profile.id)
+                }
+            })
+        }
+        category.isVisible = category.preferenceCount > 0
+    }
+
     private fun getCategoryXml(category: SettingsCategory): Int {
         return when (category) {
             SettingsCategory.STATUS_BAR -> R.xml.feature_settings_ui

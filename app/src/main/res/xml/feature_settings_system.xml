@@ -70,4 +70,7 @@
             android:summary="@string/tee_soft_debug_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:key="profile_input_methods"
+        android:title="@string/profile_ime_category" />
+
 </PreferenceScreen>

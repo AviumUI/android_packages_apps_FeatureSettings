@@ -124,4 +124,8 @@
         <item quantity="one">Enabled for %d app</item>
         <item quantity="other">Enabled for %d apps</item>
     </plurals>
+    <string name="profile_ime_category">Use main-space keyboard</string>
+    <string name="profile_ime_summary">Use the main space’s selected keyboard in this space. The keyboard can process text entered here. Applies when you next focus a text field; turn off to restore the space’s own keyboard.</string>
+    <string name="profile_ime_clone">Cloned apps</string>
+    <string name="profile_ime_private">Private space</string>
 </resources>

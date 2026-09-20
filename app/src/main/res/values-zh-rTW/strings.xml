@@ -107,4 +107,8 @@
     <plurals name="tee_soft_debug_enabled_with_apps">
         <item quantity="other">已對 %d 個應用程式啟用</item>
     </plurals>
+    <string name="profile_ime_category">使用主空間輸入法</string>
+    <string name="profile_ime_summary">在此空間使用主空間選取的輸入法，輸入法可以處理此處輸入的內容。下次點選輸入框時生效；關閉後恢復此空間自己的輸入法。</string>
+    <string name="profile_ime_clone">應用分身</string>
+    <string name="profile_ime_private">私人空間</string>
 </resources>

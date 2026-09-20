@@ -16,7 +16,10 @@
   -->
 <permissions>
     <privapp-permissions package="org.exthm.featuresettings">
-        <!-- Core -->
+        <!-- Profile keyboard settings -->
+        <permission name="android.permission.QUERY_USERS" />
+        <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+        <permission name="android.permission.INTERACT_ACROSS_USERS_FULL" />
         
     </privapp-permissions>
 </permissions>
